@@ -1,0 +1,444 @@
+<!doctype html><html lang="pt"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b8794"><link rel="icon" href="img/logo.png"><meta property="og:title" content="Nerida Villa"><meta property="og:description" content="Menu, estadia e experiências do Nerida Villa. Conheça o resort antes de chegar."><meta property="og:image" content="img/piscina.jpg"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>Nerida Villa</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@500;700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one phone-width column, photo-led, bottom tab bar; the bar and cart are fixed to the screen edges */
+:root{
+  --bg:#f4f7f6; --surface:#ffffff; --ink:#0f2a2e; --muted:#587074; --line:#dbe5e4;
+  --sea:#0b8794; --sea-2:#1fb3c2; --sun:#a87f22; --chip:#e8eeed; --on-sea:#ffffff;
+  --shadow:0 10px 30px -18px rgba(15,42,46,.45);
+  --display:"Antonio","Oswald","Arial Narrow",sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0a1820; --surface:#10242e; --ink:#e6f0f0; --muted:#8fa7ad; --line:#1f3a48;
+  --sea:#2fc0cd; --sea-2:#5fd6e1; --sun:#d8b14d; --chip:#18303c; --on-sea:#06222a;
+  --shadow:0 10px 30px -18px rgba(0,0,0,.8); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0a1820; --surface:#10242e; --ink:#e6f0f0; --muted:#8fa7ad; --line:#1f3a48;
+  --sea:#2fc0cd; --sea-2:#5fd6e1; --sun:#d8b14d; --chip:#18303c; --on-sea:#06222a;
+  --shadow:0 10px 30px -18px rgba(0,0,0,.8); color-scheme:dark}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink)}
+body{font-family:var(--body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--sea);outline-offset:2px;border-radius:6px}
+.app{max-width:560px;margin:0 auto;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+.pad{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:.02em;text-transform:uppercase;margin:0;text-wrap:balance;line-height:1.05}
+h2{font-size:30px} h3{font-size:20px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sun)}
+.muted{color:var(--muted)}
+.num{font-variant-numeric:tabular-nums}
+
+/* hero */
+.hero{position:relative;color:#fff;overflow:hidden}
+.hero img.bg{display:block;width:100%;aspect-ratio:4/3.6;object-fit:cover;max-width:100%}
+.hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,24,30,.05) 30%,rgba(6,24,30,.78) 100%)}
+.hero .top{position:absolute;top:12px;left:0;right:0;display:flex;justify-content:flex-end;gap:8px}
+.hero .copy{position:absolute;left:0;right:0;bottom:22px;display:grid;gap:6px}
+.hero h1{font-size:54px;letter-spacing:.04em}
+.hero p{margin:0;max-width:34ch;font-size:16px;opacity:.92}
+.pill{border:1px solid rgba(255,255,255,.55);background:rgba(6,24,30,.35);backdrop-filter:blur(6px);color:#fff;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600}
+.logo-badge{position:absolute;top:10px;left:max(16px,env(safe-area-inset-left,0px));width:64px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.35))}
+
+.spot{margin-top:-14px;position:relative;z-index:2;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:14px;display:grid;gap:10px}
+.spot b{font-family:var(--display);font-size:22px;letter-spacing:.03em;text-transform:uppercase}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{border:0;border-radius:12px;padding:11px 16px;font-weight:600;background:var(--sea);color:var(--on-sea);text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn.ghost{background:var(--chip);color:var(--ink)}
+.btn.block{width:100%}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+
+section{padding-block:26px 6px;display:grid;gap:14px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{position:relative;border:0;padding:0;border-radius:16px;overflow:hidden;text-align:left;color:#fff;background:#0b2a30;min-height:150px}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tile span{position:absolute;inset:auto 0 0 0;padding:28px 12px 10px;background:linear-gradient(180deg,transparent,rgba(5,20,26,.85));font-family:var(--display);font-size:22px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;line-height:1}
+.tile small{display:block;font-family:var(--body);font-size:12px;text-transform:none;letter-spacing:0;font-weight:500;opacity:.85;margin-top:4px}
+.strip{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px))}
+.strip img{flex:0 0 72%;max-width:72%;aspect-ratio:4/5;object-fit:cover;border-radius:14px;scroll-snap-align:start}
+.info{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;display:grid;gap:6px}
+
+/* menu */
+.mhead{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:12px 8px;display:grid;gap:10px;border-bottom:1px solid var(--line)}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--chip);border-radius:12px;padding:4px}
+.seg button{border:0;background:transparent;border-radius:9px;padding:9px;font-weight:600;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.search{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 12px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.chips button{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap}
+.chips button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.cat{padding-top:22px;display:grid;gap:4px;scroll-margin-top:150px}
+.cat-banner{width:100%;max-width:100%;aspect-ratio:16/8;object-fit:cover;border-radius:14px;margin-bottom:8px}
+.cat .note{font-size:13px;margin:0 0 6px}
+.item{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:start}
+.item .name{font-weight:600;min-width:0}
+.item .desc{font-size:13px;color:var(--muted);grid-column:1;min-width:0}
+.item .price{font-weight:700;white-space:nowrap}
+.item .tags{grid-column:1;display:flex;gap:4px;flex-wrap:wrap}
+.tag{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--sun);border:1px solid currentColor;border-radius:6px;padding:1px 6px}
+.qty{grid-column:2;grid-row:2 / span 2;justify-self:end;display:flex;align-items:center;gap:6px}
+.qty button{width:32px;height:32px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-weight:700;font-size:18px;line-height:1}
+.qty button.add{background:var(--sea);border-color:var(--sea);color:var(--on-sea)}
+.qty span{min-width:18px;text-align:center;font-weight:700}
+
+/* cards for rooms / experiences */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:grid}
+.card img{width:100%;max-width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.card .body{padding:14px;display:grid;gap:8px}
+.facts{display:flex;gap:6px;flex-wrap:wrap}
+.facts span{font-size:12px;background:var(--chip);border-radius:8px;padding:3px 8px;color:var(--muted);font-weight:600}
+.example{font-size:12px;font-weight:600;color:var(--sun)}
+
+/* cart bar + nav */
+.cartbar{position:fixed;left:0;right:0;bottom:calc(64px + env(safe-area-inset-bottom,0px));z-index:20;pointer-events:none}
+.cartbar .in{max-width:560px;margin:0 auto;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));padding-bottom:8px}
+.cartbar button{pointer-events:auto;width:100%;border:0;border-radius:14px;padding:13px 16px;background:var(--ink);color:var(--bg);display:flex;justify-content:space-between;font-weight:700;box-shadow:var(--shadow)}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:21;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav.tabs .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+nav.tabs button{border:0;background:transparent;padding:8px 0 10px;display:grid;justify-items:center;gap:2px;font-size:11px;font-weight:600;color:var(--muted);height:64px}
+nav.tabs button[aria-current="page"]{color:var(--sea)}
+nav.tabs svg{width:22px;height:22px}
+
+/* sheet */
+.scrim{position:fixed;inset:0;background:rgba(4,16,20,.55);z-index:40;display:flex;align-items:flex-end;justify-content:center}
+.sheet{width:100%;max-width:560px;max-height:88%;overflow:auto;background:var(--bg);border-radius:20px 20px 0 0;padding-block:18px calc(18px + env(safe-area-inset-bottom,0px));display:grid;gap:14px;align-content:start}
+.sheet .grab{width:40px;height:4px;border-radius:4px;background:var(--line);justify-self:center}
+.field{display:grid;gap:4px}
+.field label{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 12px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.line{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.total{display:flex;justify-content:space-between;font-family:var(--display);font-size:24px;text-transform:uppercase}
+.hint{font-size:12.5px;color:var(--muted);margin:0}
+.wa{font-size:13px;color:var(--muted);text-align:center;margin:0}
+@media (prefers-reduced-motion:no-preference){.sheet{animation:up .22s ease-out}@keyframes up{from{transform:translateY(24px);opacity:.6}}}
+</style>
+
+<div id="root"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/htm@3.1.1/dist/htm.umd.js"></script>
+<script>
+/* ===== CONFIGURAÇÃO DO RESORT (editar aqui) ===== */
+const CONFIG = {
+  whatsapp: "244900000000",          // número do resort, só dígitos, com 244
+  whatsappLabel: "+244 900 000 000", // como aparece no ecrã
+  menuUpdated: "Comida: Setembro 2026 · Bebidas: Abril 2026"
+};
+
+/* ===== MENU (fonte: cartas Nerida Villa) ===== */
+const FOOD = [
+ {cat:"Para começar", items:[
+  ["Couvert",4000,"Pão, paté, manteiga"],["Aperitivos",1500,"Pipocas ou gingubas"],
+  ["Salgados",3500,"3 rissóis, 3 croquetes ou coxinhas de frango"]]},
+ {cat:"Entradas", items:[
+  ["Gambas ao Alho",10500],["Choco Frito",8000],["Salada de Polvo",6500],
+  ["Chouriço Assado",7500],["Frango à Passarinho",4000],["Pica-pau",8500]]},
+ {cat:"Sopas", items:[["Caldo de Peixe",6500],["Sopa do Dia",3500]]},
+ {cat:"Saladas e Vegetariano", items:[
+  ["Salada Nerida",8500,"Gambas, alface, ananás, melancia, molho cocktail"],
+  ["Salada de Atum",7500,"Alface, atum, azeitonas, pimentos, ovos"],
+  ["Legumes à Moda do Chefe",1800,"",["Vegetariano"]],
+  ["Salada Simples ou Mista",2500,"",["Vegetariano"]]]},
+ {cat:"Peixe", items:[
+  ["Posta de Corvina",15500,"Legumes a vapor, banana pão, batata doce"],
+  ["Posta de Garoupa",15500,"Legumes a vapor, banana pão, batata doce"],
+  ["Calafate",16800,"Feijão de óleo de palma, batata doce, mandioca, farinha, molho vinagrete"],
+  ["Chopa",16800,"Feijão de óleo de palma, batata doce, mandioca, farinha, molho vinagrete"],
+  ["Cataplana de Peixe",32500,"",["Para 2"]],
+  ["Choco Grelhado",14500],["Polvo à Lagareiro",17300]]},
+ {cat:"Marisco", items:[["Cozido de Marisco",32500],["Bobó de Camarão",15500]]},
+ {cat:"Carne", note:"Acompanha arroz branco, feijão preto e batata frita, salvo indicação.", items:[
+  ["Frango Grelhado",9500,"Arroz, batata frita, salada"],
+  ["Cordon Bleu",15700,"Molho de tomate, massa e queijo"],
+  ["Bitoque",15200,"Batata frita, salada"],
+  ["Bife do Lombo",19700,"Esparregado e batata frita"],["Picanha",17900]]},
+ {cat:"Sugestão do Chefe", items:[["Prato de Marisco",30200],["Prato de Peixe",22200],["Prato de Carne",20700]]},
+ {cat:"Menu Infantil", items:[["Filetes de Peixe",9500],["Frango Panado",9500],["Almôndegas",15300],["Massa à Bolonhesa",15100]]},
+ {cat:"Menu Praia", photo:"lounge2", items:[
+  ["Batata Chips",4800],["Batata Doce Chips",4800],["Hambúrguer",6000],["Cachorro Quente",3000],["Prego no Pão",8500]]},
+ {cat:"Guarnições", items:[
+  ["Arroz Branco",2000],["Arroz de Tomate ou Feijão Preto",2100],["Feijão",2500,"Óleo de palma, manteiga ou preto"],
+  ["Batata Rena",1900,"Frita ou cozida"],["Batata Doce",1900,"Frita ou cozida"],["Mandioca Cozida",1900],["Ovo",500,"Estrelado ou cozido"]]},
+ {cat:"Sobremesas", items:[["Bolo do Dia",2000],["Sobremesa do Dia",2500],["Fruta da Época",2300]]}
+];
+const DRINK = [
+ {cat:"Cafetaria", items:[["Café Expresso",1500],["Café Americano",2000],["Café com Cheirinho",2500],["Carioca de Café",900],["Chá Infusão",900],["Chá Natural",1650]]},
+ {cat:"Águas, refrigerantes e sumos", items:[
+  ["Água Mineral 500 ml",800],["Água Mineral 1,5 L",1800],["Água Gaseificada",2100],["Água Tónica Welwitchia",1500],
+  ["Coca-Cola",1500],["Sprite",1500],["Sumol Laranja",1500],["Sumol Ananás",1500],
+  ["Sumo Natural",3800,"Ananás, maracujá, melancia ou limonada"]]},
+ {cat:"Cervejas", items:[["Cuca Lata",1970],["Cuca Garrafa",1150],["Eka Lata",1970],["Eka Garrafa",1150],["Nocal",1970]]},
+ {cat:"Cocktails sem álcool", photo:"granizado", items:[["Granizado de Frutas",5500],["Virgin Mojito",4500]]},
+ {cat:"Cocktails", photo:"margaritas", items:[
+  ["Cocktail Nerida",6000],["Mussulo Yetu",5000],["Caipirinha de Frutas",5000],["El Mojito",5500],["Gin Tónico Gordon's",5500],["M&M Sunrise",6700]]},
+ {cat:"Bebidas espirituosas", items:[
+  ["Whiskey Jameson",8000],["Johnnie Walker Black Label",10100],["Aguardente CR&F",8900],["Bagaceira",5800],
+  ["Cognac Rémy Martin VSOP",15000],["Cognac (outros)",10000],["Shot de Tequila",6500],["Licor Beirão",6500]]},
+ {cat:"Sangrias", photo:"ananas", items:[["Sangria Tinta 1 L",17500,"",["Para partilhar"]],["Sangria Branca 1 L",17500,"",["Para partilhar"]],["Sangria de Espumante 1 L",21000,"",["Para partilhar"]]]},
+ {cat:"Vinho rosé", items:[["Mateus Rosé 2023",12800,"750 ml"]]},
+ {cat:"Vinho branco e verde", items:[["Mariana Branco 2023",13500,"750 ml"],["Planalto Branco 2023",16500,"750 ml"]]},
+ {cat:"Vinho tinto", items:[["Segredos de São Miguel 2021",17000,"750 ml"],["Papa Figos 2023",21500,"750 ml"],["Mariana Tinto",19500]]},
+ {cat:"Espumantes", items:[["Moscato Cavatina",17000,"750 ml"],["Graham Beck Gliss Nectar Rosé",55000,"750 ml"],["Lambrusco",30000,"750 ml"],["Moët & Chandon Impérial",null,"Preço sob consulta"]]}
+];
+function build(list,kind){return list.map((c,ci)=>({...c,id:kind+"-"+ci,items:c.items.map((it,ii)=>({id:kind+ci+"-"+ii,name:it[0],price:it[1],desc:it[2]||"",tags:it[3]||[]}))}))}
+const MENU = {food:build(FOOD,"f"),drink:build(DRINK,"d")};
+const ITEMS = {}; [...MENU.food,...MENU.drink].forEach(c=>c.items.forEach(i=>ITEMS[i.id]=i));
+
+/* ===== QUARTOS E EXPERIÊNCIAS (exemplos para substituir) ===== */
+const ROOMS = [
+ {id:"r1",name:"Bungalow Duplo",img:"noite",facts:["2 adultos","Cama de casal","A passos da praia"],text:"Bungalow de colmo junto ao passadiço, com acesso directo à areia."},
+ {id:"r2",name:"Bungalow Família",img:"piscina",facts:["Até 4 pessoas","Perto da piscina"],text:"Espaço para a família, com a piscina e o bar ao lado."}
+];
+const EXPS = [
+ {id:"e1",name:"Passeio a cavalo",img:"cavalos",facts:["Na praia","Com guia"],text:"Um passeio a cavalo pela beira-mar, ao ritmo das ondas."},
+ {id:"e2",name:"Cabana privada",img:"cabana",facts:["Dia inteiro","2 espreguiçadeiras"],text:"Cortinas brancas, duas espreguiçadeiras e o mar à frente. O bar serve-vos lá."},
+ {id:"e3",name:"Noite de fogueira",img:"fogueira",facts:["Ao anoitecer","Grupos"],text:"Bancos em roda, luzes no ar e fogo na areia. Ideal para grupos e celebrações."},
+ {id:"e4",name:"Lounge ao pôr do sol",img:"lounge",facts:["Fim de tarde","Sangria ou cocktails"],text:"Mesa reservada no lounge da praia para ver o sol descer sobre o mar."}
+];
+const GALLERY = ["piscina","cabana","lounge","noite","cavalos","fogueira"];
+
+/* ===== TEXTOS PT / EN ===== */
+const T = {
+ pt:{home:"Início",menu:"Menu",stay:"Estadia",exp:"Experiências",tag:"Praia, sol e mesa posta. Conheça o resort antes de chegar.",
+  explore:"Explorar",seeMenu:"Ver o menu",food:"Comida",drink:"Bebidas",search:"Procurar prato ou bebida",
+  youAt:"Está em",call:"Chamar empregado",bill:"Pedir a conta",order:"Ver pedido",items:"itens",
+  cartTitle:"O seu pedido",where:"Onde entregar",atResort:"Já estou no resort",pre:"Pré-encomenda para a chegada",
+  place:"Local",number:"Número",name:"Nome",notes:"Observações",date:"Data",time:"Hora",send:"Enviar pelo WhatsApp",
+  total:"Total",empty:"Ainda não escolheu nada.",reserve:"Pedir reserva",checkin:"Entrada",checkout:"Saída",people:"Pessoas",
+  example:"Exemplo · substituir pelos dados reais",onRequest:"Preço sob consulta",close:"Fechar",
+  waNote:"Abre o WhatsApp com a mensagem pronta. O pedido só segue quando carregar em enviar.",
+  gallery:"O resort",getThere:"Como chegar",getThereText:"Peça a localização e as indicações de acesso pelo WhatsApp. Respondemos com o caminho mais simples a partir de Luanda.",
+  askWay:"Pedir indicações",updated:"Cartas",preTitle:"Chegue com a mesa pronta",preText:"Escolha do menu e marque a hora de chegada. Quando chegar, está à sua espera.",
+  stayText:"Bungalows na areia, a poucos passos do mar.",expText:"Coisas para viver no resort. Reserve antes de chegar.",
+  spots:{cabana:"Cabana",mesa:"Mesa",quarto:"Quarto",espreguicadeira:"Espreguiçadeira",lounge:"Lounge"}},
+ en:{home:"Home",menu:"Menu",stay:"Stay",exp:"Experiences",tag:"Beach, sun and a table set for you. Get to know the resort before you arrive.",
+  explore:"Explore",seeMenu:"See the menu",food:"Food",drink:"Drinks",search:"Search dishes or drinks",
+  youAt:"You are at",call:"Call a waiter",bill:"Ask for the bill",order:"View order",items:"items",
+  cartTitle:"Your order",where:"Where to deliver",atResort:"I'm at the resort",pre:"Pre-order for arrival",
+  place:"Spot",number:"Number",name:"Name",notes:"Notes",date:"Date",time:"Time",send:"Send via WhatsApp",
+  total:"Total",empty:"Nothing chosen yet.",reserve:"Request booking",checkin:"Check-in",checkout:"Check-out",people:"Guests",
+  example:"Example · replace with real details",onRequest:"Price on request",close:"Close",
+  waNote:"Opens WhatsApp with the message ready. Nothing is sent until you press send.",
+  gallery:"The resort",getThere:"Getting here",getThereText:"Ask for the location and directions on WhatsApp. We reply with the easiest route from Luanda.",
+  askWay:"Ask for directions",updated:"Menus",preTitle:"Arrive to a table ready",preText:"Choose from the menu and set your arrival time. It will be waiting for you.",
+  stayText:"Bungalows on the sand, a few steps from the sea.",expText:"Things to do at the resort. Book before you arrive.",
+  spots:{cabana:"Cabana",mesa:"Table",quarto:"Room",espreguicadeira:"Sunbed",lounge:"Lounge"}}
+};
+
+const kz = n => n==null ? null : String(n).replace(/\B(?=(\d{3})+(?!\d))/g,".")+" Kz";
+const wa = msg => "https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg);
+const img = k => "img/"+k+".jpg";
+function store(k,v){try{if(v===undefined){return JSON.parse(localStorage.getItem(k))}localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+function readSpot(){const h=(location.hash||"").slice(1).toLowerCase();const m=h.match(/^(cabana|mesa|quarto|espreguicadeira|lounge)-?(\d+)$/);return m?{type:m[1],n:m[2]}:null}
+
+const {useState,useEffect,useMemo,useRef} = React;
+const html = htm.bind(React.createElement);
+
+const Icon = ({d}) => html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d.map((p,i)=>html`<path key=${i} d=${p}/>`)}</svg>`;
+const ICONS = {
+ home:["M3 11l9-7 9 7","M5 10v10h14V10"],
+ menu:["M7 3v8a2 2 0 0 0 4 0V3","M9 11v10","M17 3c-2 2-2 6 0 8v10"],
+ stay:["M3 20h18","M5 20v-8l7-6 7 6v8","M10 20v-5h4v5"],
+ exp:["M3 18c3-2 6-2 9 0s6 2 9 0","M12 4a4 4 0 0 1 4 4","M12 4a4 4 0 0 0-4 4","M12 4v-1"]
+};
+
+function App(){
+ const [lang,setLang]=useState(()=>store("nv-lang")||"pt");
+ const t=T[lang];
+ const [tab,setTab]=useState("home");
+ const [kind,setKind]=useState("food");
+ const [q,setQ]=useState("");
+ const [cart,setCart]=useState(()=>store("nv-cart")||{});
+ const [spot,setSpot]=useState(readSpot);
+ const [sheet,setSheet]=useState(null);
+ useEffect(()=>{store("nv-cart",cart)},[cart]);
+ useEffect(()=>{store("nv-lang",lang)},[lang]);
+ useEffect(()=>{const f=()=>setSpot(readSpot());addEventListener("hashchange",f);return()=>removeEventListener("hashchange",f)},[]);
+ useEffect(()=>{window.scrollTo(0,0)},[tab]);
+
+ const count=Object.values(cart).reduce((a,b)=>a+b,0);
+ const total=Object.entries(cart).reduce((s,[id,n])=>s+(ITEMS[id]?.price||0)*n,0);
+ const add=(id,d)=>setCart(c=>{const n=Math.max(0,(c[id]||0)+d);const x={...c};if(n)x[id]=n;else delete x[id];return x});
+ const spotLabel=spot?t.spots[spot.type]+" "+spot.n:null;
+ const go=(tb,k)=>{if(k)setKind(k);setTab(tb)};
+
+ return html`<div class="app">
+  ${tab==="home"&&html`<${Home} t=${t} lang=${lang} setLang=${setLang} spotLabel=${spotLabel} go=${go} openPre=${()=>{go("menu","food")}}/>`}
+  ${tab==="menu"&&html`<${Menu} t=${t} kind=${kind} setKind=${setKind} q=${q} setQ=${setQ} cart=${cart} add=${add}/>`}
+  ${tab==="stay"&&html`<${Cards} t=${t} title=${t.stay} intro=${t.stayText} list=${ROOMS} onPick=${r=>setSheet({type:"room",item:r})}/>`}
+  ${tab==="exp"&&html`<${Cards} t=${t} title=${t.exp} intro=${t.expText} list=${EXPS} onPick=${r=>setSheet({type:"exp",item:r})}/>`}
+
+  ${count>0&&!sheet&&html`<div class="cartbar"><div class="in"><button onClick=${()=>setSheet({type:"cart"})}>
+     <span>${t.order} · ${count} ${t.items}</span><span class="num">${kz(total)}</span></button></div></div>`}
+
+  <nav class="tabs" aria-label="Secções"><div class="in">
+   ${[["home",t.home],["menu",t.menu],["stay",t.stay],["exp",t.exp]].map(([k,l])=>html`
+    <button key=${k} aria-current=${tab===k?"page":undefined} onClick=${()=>setTab(k)}><${Icon} d=${ICONS[k]}/>${l}</button>`)}
+  </div></nav>
+
+  ${sheet&&html`<div class="scrim" onClick=${e=>{if(e.target===e.currentTarget)setSheet(null)}}>
+   <div class="sheet pad" role="dialog" aria-modal="true">
+    <div class="grab"></div>
+    ${sheet.type==="cart"
+      ? html`<${Cart} t=${t} cart=${cart} add=${add} total=${total} spot=${spot} close=${()=>setSheet(null)}/>`
+      : html`<${Booking} t=${t} kind=${sheet.type} item=${sheet.item} close=${()=>setSheet(null)}/>`}
+   </div></div>`}
+ </div>`;
+}
+
+function Home({t,lang,setLang,spotLabel,go}){
+ const spotMsg=k=>wa((k==="bill"?"Olá, peço a conta, por favor.":"Olá, podem vir atender-nos, por favor?")+"\nLocal: "+spotLabel);
+ return html`<div>
+  <div class="hero">
+   <img class="bg" src=${img("piscina")} alt="Piscina do Nerida Villa ao pôr do sol, com a praia ao fundo"/>
+   <div class="veil"></div>
+   <img class="logo-badge" src="img/logo.png" alt="Nerida Villa"/>
+   <div class="top pad"><button class="pill" onClick=${()=>setLang(lang==="pt"?"en":"pt")} aria-label="Mudar língua">${lang==="pt"?"EN":"PT"}</button></div>
+   <div class="copy pad"><span class="eyebrow" style=${{color:"#f1d48a"}}>Resort de praia · Angola</span><h1>Nerida Villa</h1><p>${t.tag}</p></div>
+  </div>
+  <div class="pad">
+   ${spotLabel&&html`<div class="spot">
+     <div><span class="muted">${t.youAt}</span><br/><b>${spotLabel}</b></div>
+     <div class="row">
+      <button class="btn" onClick=${()=>go("menu","drink")}>${t.seeMenu}</button>
+      <a class="btn ghost" href=${spotMsg("call")} target="_blank" rel="noopener">${t.call}</a>
+      <a class="btn ghost" href=${spotMsg("bill")} target="_blank" rel="noopener">${t.bill}</a>
+     </div></div>`}
+   <section>
+    <span class="eyebrow">${t.explore}</span>
+    <div class="tiles">
+     <button class="tile" onClick=${()=>go("menu","food")}><img src=${img("ananas")} alt=""/><span>${t.food}<small>Peixe, marisco, grelhados</small></span></button>
+     <button class="tile" onClick=${()=>go("menu","drink")}><img src=${img("granizado")} alt=""/><span>${t.drink}<small>Cocktails, sangrias, vinhos</small></span></button>
+     <button class="tile" onClick=${()=>go("stay")}><img src=${img("noite")} alt=""/><span>${t.stay}<small>Bungalows na areia</small></span></button>
+     <button class="tile" onClick=${()=>go("exp")}><img src=${img("cavalos")} alt=""/><span>${t.exp}<small>Cavalos, cabanas, fogueira</small></span></button>
+    </div>
+   </section>
+   <section>
+    <div class="info"><h3>${t.preTitle}</h3><p class="hint" style=${{fontSize:"14px"}}>${t.preText}</p>
+     <button class="btn" onClick=${()=>go("menu","food")}>${t.seeMenu}</button></div>
+   </section>
+   <section>
+    <h2>${t.gallery}</h2>
+    <div class="strip">${GALLERY.map(k=>html`<img key=${k} src=${img(k)} alt="" loading="lazy"/>`)}</div>
+   </section>
+   <section>
+    <div class="info"><h3>${t.getThere}</h3><p class="hint" style=${{fontSize:"14px"}}>${t.getThereText}</p>
+     <a class="btn ghost" href=${wa("Olá, gostaria de receber a localização e as indicações para chegar ao Nerida Villa.")} target="_blank" rel="noopener">${t.askWay}</a>
+     <p class="hint">WhatsApp: <span style=${{userSelect:"all"}}>${CONFIG.whatsappLabel}</span></p></div>
+   </section>
+  </div></div>`;
+}
+
+function Menu({t,kind,setKind,q,setQ,cart,add}){
+ const cats=MENU[kind];
+ const [active,setActive]=useState(cats[0].id);
+ useEffect(()=>setActive(MENU[kind][0].id),[kind]);
+ const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+ const shown=useMemo(()=>{if(!q.trim())return cats;const n=norm(q);return cats.map(c=>({...c,items:c.items.filter(i=>norm(i.name+" "+i.desc).includes(n))})).filter(c=>c.items.length)},[q,cats]);
+ const jump=id=>{setActive(id);document.getElementById(id)?.scrollIntoView({behavior:"smooth",block:"start"})};
+ return html`<div>
+  <div class="mhead pad">
+   <div class="seg">
+    <button aria-pressed=${kind==="food"} onClick=${()=>setKind("food")}>${t.food}</button>
+    <button aria-pressed=${kind==="drink"} onClick=${()=>setKind("drink")}>${t.drink}</button>
+   </div>
+   <input id="menu-search" class="search" type="search" placeholder=${t.search} value=${q} onInput=${e=>setQ(e.target.value)}/>
+   ${!q&&html`<div class="chips">${cats.map(c=>html`<button key=${c.id} aria-pressed=${active===c.id} onClick=${()=>jump(c.id)}>${c.cat}</button>`)}</div>`}
+  </div>
+  <div class="pad">
+   ${shown.map(c=>html`<div class="cat" id=${c.id} key=${c.id}>
+     ${c.photo&&html`<img class="cat-banner" src=${img(c.photo)} alt="" loading="lazy"/>`}
+     <h3>${c.cat}</h3>
+     ${c.note&&html`<p class="note muted">${c.note}</p>`}
+     ${c.items.map(i=>html`<div class="item" key=${i.id}>
+       <div class="name">${i.name}</div>
+       <div class="price num">${i.price?kz(i.price):html`<span class="muted" style=${{fontWeight:500,fontSize:"13px"}}>${t.onRequest}</span>`}</div>
+       ${i.desc&&html`<div class="desc">${i.desc}</div>`}
+       ${i.tags.length>0&&html`<div class="tags">${i.tags.map(g=>html`<span class="tag" key=${g}>${g}</span>`)}</div>`}
+       ${i.price&&html`<div class="qty">
+         ${cart[i.id]?html`<button aria-label=${"Retirar "+i.name} onClick=${()=>add(i.id,-1)}>−</button><span class="num">${cart[i.id]}</span>`:null}
+         <button class="add" aria-label=${"Adicionar "+i.name} onClick=${()=>add(i.id,1)}>+</button></div>`}
+     </div>`)}
+   </div>`)}
+   <p class="hint" style=${{padding:"20px 0"}}>${t.updated}: ${CONFIG.menuUpdated}. Preços em kwanzas.</p>
+  </div></div>`;
+}
+
+function Cards({t,title,intro,list,onPick}){
+ return html`<div class="pad"><section>
+  <h2>${title}</h2><p class="muted" style=${{margin:0}}>${intro}</p>
+  ${list.map(r=>html`<article class="card" key=${r.id}>
+   <img src=${img(r.img)} alt="" loading="lazy"/>
+   <div class="body"><span class="example">${t.example}</span><h3>${r.name}</h3>
+    <div class="facts">${r.facts.map(f=>html`<span key=${f}>${f}</span>`)}</div>
+    <p style=${{margin:0}}>${r.text}</p>
+    <div class="row" style=${{justifyContent:"space-between"}}><span class="muted">${t.onRequest}</span>
+     <button class="btn" onClick=${()=>onPick(r)}>${t.reserve}</button></div></div>
+  </article>`)}
+ </section></div>`;
+}
+
+function Booking({t,kind,item,close}){
+ const [f,setF]=useState({name:"",a:"",b:"",p:"2",notes:""});
+ const set=k=>e=>setF({...f,[k]:e.target.value});
+ const msg=["Olá, gostaria de pedir uma reserva no Nerida Villa.",
+  (kind==="room"?"Quarto: ":"Experiência: ")+item.name,
+  kind==="room"?`${t.checkin}: ${f.a||"?"} · ${t.checkout}: ${f.b||"?"}`:`${t.date}: ${f.a||"?"}`,
+  `${t.people}: ${f.p}`, f.name&&`Nome: ${f.name}`, f.notes&&`Obs: ${f.notes}`].filter(Boolean).join("\n");
+ return html`<${React.Fragment}>
+  <div class="row" style=${{justifyContent:"space-between"}}><h2>${item.name}</h2><button class="btn ghost" onClick=${close}>${t.close}</button></div>
+  <div class="field"><label for="bk-name">${t.name}</label><input id="bk-name" value=${f.name} onInput=${set("name")} autocomplete="name"/></div>
+  <div class="two">
+   <div class="field"><label for="bk-a">${kind==="room"?t.checkin:t.date}</label><input id="bk-a" type="date" value=${f.a} onInput=${set("a")}/></div>
+   ${kind==="room"
+    ?html`<div class="field"><label for="bk-b">${t.checkout}</label><input id="bk-b" type="date" value=${f.b} onInput=${set("b")}/></div>`
+    :html`<div class="field"><label for="bk-p">${t.people}</label><input id="bk-p" type="number" min="1" value=${f.p} onInput=${set("p")}/></div>`}
+  </div>
+  ${kind==="room"&&html`<div class="field"><label for="bk-p2">${t.people}</label><input id="bk-p2" type="number" min="1" value=${f.p} onInput=${set("p")}/></div>`}
+  <div class="field"><label for="bk-notes">${t.notes}</label><textarea id="bk-notes" rows="2" value=${f.notes} onInput=${set("notes")} placeholder="Aniversário, lua-de-mel, hora de chegada…"></textarea></div>
+  <a class="btn block" href=${wa(msg)} target="_blank" rel="noopener">${t.send}</a>
+  <p class="wa">${t.waNote}</p>
+ <//>`;
+}
+
+function Cart({t,cart,add,total,spot,close}){
+ const [mode,setMode]=useState(spot?"here":"pre");
+ const [f,setF]=useState({type:spot?.type||"cabana",n:spot?.n||"",name:"",date:"",time:"",notes:""});
+ const set=k=>e=>setF({...f,[k]:e.target.value});
+ const lines=Object.entries(cart).filter(([id])=>ITEMS[id]);
+ const msg=["Olá, pedido pela app Nerida Villa:","",...lines.map(([id,n])=>`${n}× ${ITEMS[id].name} · ${kz(ITEMS[id].price*n)}`),"",`Total: ${kz(total)}`,
+  mode==="here"?`Local: ${t.spots[f.type]} ${f.n||"?"}`:`Pré-encomenda para chegada: ${f.date||"?"} às ${f.time||"?"}`,
+  f.name&&`Nome: ${f.name}`, f.notes&&`Obs: ${f.notes}`].filter(x=>x!==false&&x!==undefined&&x!==null).join("\n");
+ return html`<${React.Fragment}>
+  <div class="row" style=${{justifyContent:"space-between"}}><h2>${t.cartTitle}</h2><button class="btn ghost" onClick=${close}>${t.close}</button></div>
+  ${lines.length===0?html`<p class="muted">${t.empty}</p>`:html`<div>
+   ${lines.map(([id,n])=>html`<div class="line" key=${id}>
+     <div style=${{minWidth:0}}><div style=${{fontWeight:600}}>${ITEMS[id].name}</div><div class="muted num" style=${{fontSize:"13px"}}>${kz(ITEMS[id].price*n)}</div></div>
+     <div class="qty" style=${{gridRow:"auto"}}><button aria-label="Retirar" onClick=${()=>add(id,-1)}>−</button><span class="num">${n}</span><button class="add" aria-label="Adicionar" onClick=${()=>add(id,1)}>+</button></div>
+   </div>`)}
+   <div class="total" style=${{paddingTop:"12px"}}><span>${t.total}</span><span class="num">${kz(total)}</span></div></div>`}
+  <div class="field"><label>${t.where}</label>
+   <div class="seg"><button aria-pressed=${mode==="here"} onClick=${()=>setMode("here")}>${t.atResort}</button><button aria-pressed=${mode==="pre"} onClick=${()=>setMode("pre")}>${t.pre}</button></div></div>
+  ${mode==="here"?html`<div class="two">
+    <div class="field"><label for="ct-type">${t.place}</label><select id="ct-type" value=${f.type} onChange=${set("type")}>${Object.entries(t.spots).map(([k,l])=>html`<option key=${k} value=${k}>${l}</option>`)}</select></div>
+    <div class="field"><label for="ct-n">${t.number}</label><input id="ct-n" inputmode="numeric" value=${f.n} onInput=${set("n")}/></div></div>`
+   :html`<div class="two">
+    <div class="field"><label for="ct-date">${t.date}</label><input id="ct-date" type="date" value=${f.date} onInput=${set("date")}/></div>
+    <div class="field"><label for="ct-time">${t.time}</label><input id="ct-time" type="time" value=${f.time} onInput=${set("time")}/></div></div>`}
+  <div class="field"><label for="ct-name">${t.name}</label><input id="ct-name" value=${f.name} onInput=${set("name")} autocomplete="name"/></div>
+  <div class="field"><label for="ct-notes">${t.notes}</label><textarea id="ct-notes" rows="2" value=${f.notes} onInput=${set("notes")} placeholder="Sem cebola, gelo à parte…"></textarea></div>
+  ${lines.length?html`<a class="btn block" href=${wa(msg)} target="_blank" rel="noopener">${t.send}</a>`:html`<button class="btn block" disabled>${t.send}</button>`}
+  <p class="wa">${t.waNote}</p>
+ <//>`;
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(html`<${App}/>`);
+</script>
+</body></html>
