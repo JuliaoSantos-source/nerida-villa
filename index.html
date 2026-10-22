@@ -35,8 +35,9 @@ h2{font-size:30px} h3{font-size:20px}
 .num{font-variant-numeric:tabular-nums}
 
 /* ===== slow-motion slideshow ===== */
-.show{position:relative;overflow:hidden;background:#0b2a30}
-.show .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.8s ease}
+.show{position:relative;overflow:hidden;background:#0b2a30;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
+.show img{-webkit-user-drag:none;pointer-events:none}
+.hero .copy,.rv .head,.sea-band .txt{pointer-events:none}.show .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.8s ease}
 .show .slide.on{opacity:1}
 .show .slide img{width:100%;height:100%;object-fit:cover;display:block;transform-origin:var(--ox,50%) var(--oy,50%)}
 @media (prefers-reduced-motion:no-preference){
@@ -364,8 +365,16 @@ function Show({slides,interval=6000,intro=false,dur="11s",index,onIndex,label}){
  const [own,setOwn]=useState(0);
  const i=index??own; const set=onIndex??setOwn;
  const [prev,setPrev]=useState(-1);
- useEffect(()=>{if(reduced||slides.length<2)return;const t=setTimeout(()=>{setPrev(i);set((i+1)%slides.length)},interval);return()=>clearTimeout(t)},[i,slides.length]);
- return html`<div class=${"show"+(intro?" intro":"")} role="img" aria-label=${label||""}>
+ const n=slides.length;
+ const goTo=j=>{setPrev(i);set(((j%n)+n)%n)};
+ useEffect(()=>{if(reduced||n<2)return;const t=setTimeout(()=>goTo(i+1),interval);return()=>clearTimeout(t)},[i,n]);
+ const start=React.useRef(null);
+ const down=e=>{start.current={x:e.clientX,y:e.clientY}};
+ const up=e=>{const s=start.current;start.current=null;if(!s||n<2)return;const dx=e.clientX-s.x,dy=e.clientY-s.y;
+   if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.2)goTo(dx<0?i+1:i-1)};
+ const key=e=>{if(e.key==="ArrowRight")goTo(i+1);if(e.key==="ArrowLeft")goTo(i-1)};
+ return html`<div class=${"show"+(intro?" intro":"")} role="region" aria-roledescription="carrossel" aria-label=${label||""} tabIndex="0"
+   onPointerDown=${down} onPointerUp=${up} onPointerCancel=${()=>start.current=null} onKeyDown=${key}>
   ${slides.map((s,n)=>{const o=typeof s==="string"?{k:s}:s;return html`<div key=${o.k+n} class=${"slide"+(n===i?" on":"")+(n===prev?" prev":"")+(n===0?" first":"")}
      style=${{"--ox":o.ox||"50%","--oy":o.oy||"50%","--tx":o.tx||"-2%","--ty":o.ty||"-1.5%","--dur":dur}}>
      <img src=${img(o.k)} alt="" loading=${n===0?"eager":"lazy"} decoding="async"/></div>`})}
