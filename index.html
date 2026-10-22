@@ -1,10 +1,10 @@
-<!doctype html><html lang="pt"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b8794"><link rel="icon" href="img/logo.png"><meta property="og:title" content="Nerida Villa"><meta property="og:description" content="Menu, estadia e experiências do Nerida Villa. Conheça o resort antes de chegar."><meta property="og:image" content="img/piscina.jpg"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>Nerida Villa</title>
+<!doctype html><html lang="pt"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b8794"><link rel="icon" href="img/logo.png"><meta property="og:title" content="Nerida Villa"><meta property="og:description" content="Menu, quartos, praia e experiências do Nerida Villa. Conheça o resort antes de chegar."><meta property="og:image" content="img/piscina.jpg"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>Nerida Villa</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@500;700&family=Figtree:wght@400;500;600;700&display=swap">
 <style>
-/* Layout: one phone-width column, photo-led, bottom tab bar; the bar and cart are fixed to the screen edges */
+/* Layout: one phone-width column, photo-led, slow cinematic photo motion; tab bar and cart fixed to the screen edges */
 :root{
   --bg:#f4f7f6; --surface:#ffffff; --ink:#0f2a2e; --muted:#587074; --line:#dbe5e4;
   --sea:#0b8794; --sea-2:#1fb3c2; --sun:#a87f22; --chip:#e8eeed; --on-sea:#ffffff;
@@ -34,18 +34,36 @@ h2{font-size:30px} h3{font-size:20px}
 .muted{color:var(--muted)}
 .num{font-variant-numeric:tabular-nums}
 
+/* ===== slow-motion slideshow ===== */
+.show{position:relative;overflow:hidden;background:#0b2a30}
+.show .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.8s ease}
+.show .slide.on{opacity:1}
+.show .slide img{width:100%;height:100%;object-fit:cover;display:block;transform-origin:var(--ox,50%) var(--oy,50%)}
+@media (prefers-reduced-motion:no-preference){
+  .show .slide.on img,.show .slide.prev img{animation:kb var(--dur,11s) linear forwards}
+  .show.intro .slide.first.on img{animation:enter 2.6s cubic-bezier(.16,.8,.2,1) forwards, kb var(--dur,11s) linear 2.6s forwards}
+  .rise{animation:rise 1.2s cubic-bezier(.2,.8,.2,1) both}
+  .rise.d1{animation-delay:.5s}.rise.d2{animation-delay:.8s}.rise.d3{animation-delay:1.1s}
+}
+@keyframes kb{from{transform:scale(1.04)}to{transform:scale(1.16) translate(var(--tx,-2%),var(--ty,-1.5%))}}
+@keyframes enter{from{transform:scale(1.32);filter:brightness(.55) saturate(.7) blur(2px)}to{transform:scale(1.04);filter:none}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+.show .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,24,30,.25) 0%,rgba(6,24,30,0) 30%,rgba(6,24,30,0) 50%,rgba(6,24,30,.82) 100%);pointer-events:none}
+.dots{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:14px;display:flex;gap:5px;z-index:2}
+.dots i{width:6px;height:6px;border-radius:6px;background:rgba(255,255,255,.45);transition:width .4s}
+.dots i.on{width:18px;background:#fff}
+
 /* hero */
-.hero{position:relative;color:#fff;overflow:hidden}
-.hero img.bg{display:block;width:100%;aspect-ratio:4/3.6;object-fit:cover;max-width:100%}
-.hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,24,30,.05) 30%,rgba(6,24,30,.78) 100%)}
-.hero .top{position:absolute;top:12px;left:0;right:0;display:flex;justify-content:flex-end;gap:8px}
-.hero .copy{position:absolute;left:0;right:0;bottom:22px;display:grid;gap:6px}
-.hero h1{font-size:54px;letter-spacing:.04em}
+.hero{position:relative;color:#fff}
+.hero .show{height:min(74svh,620px);min-height:420px}
+.hero .top{position:absolute;top:12px;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;z-index:2}
+.hero .copy{position:absolute;left:0;right:0;bottom:30px;display:grid;gap:6px;z-index:2}
+.hero h1{font-size:58px;letter-spacing:.04em}
 .hero p{margin:0;max-width:34ch;font-size:16px;opacity:.92}
 .pill{border:1px solid rgba(255,255,255,.55);background:rgba(6,24,30,.35);backdrop-filter:blur(6px);color:#fff;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600}
-.logo-badge{position:absolute;top:10px;left:max(16px,env(safe-area-inset-left,0px));width:64px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.35))}
+.logo-badge{width:66px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.35))}
 
-.spot{margin-top:-14px;position:relative;z-index:2;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:14px;display:grid;gap:10px}
+.spot{margin-top:-14px;position:relative;z-index:3;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:14px;display:grid;gap:10px}
 .spot b{font-family:var(--display);font-size:22px;letter-spacing:.03em;text-transform:uppercase}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .btn{border:0;border-radius:12px;padding:11px 16px;font-weight:600;background:var(--sea);color:var(--on-sea);text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
@@ -54,14 +72,26 @@ h2{font-size:30px} h3{font-size:20px}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 
 section{padding-block:26px 6px;display:grid;gap:14px}
+.sechead{display:flex;justify-content:space-between;align-items:end;gap:10px}
+.link{border:0;background:none;color:var(--sea);font-weight:600;padding:0}
 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .tile{position:relative;border:0;padding:0;border-radius:16px;overflow:hidden;text-align:left;color:#fff;background:#0b2a30;min-height:150px}
-.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease}
+.tile:hover img{transform:scale(1.06)}
 .tile span{position:absolute;inset:auto 0 0 0;padding:28px 12px 10px;background:linear-gradient(180deg,transparent,rgba(5,20,26,.85));font-family:var(--display);font-size:22px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;line-height:1}
 .tile small{display:block;font-family:var(--body);font-size:12px;text-transform:none;letter-spacing:0;font-weight:500;opacity:.85;margin-top:4px}
 .strip{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px))}
-.strip img{flex:0 0 72%;max-width:72%;aspect-ratio:4/5;object-fit:cover;border-radius:14px;scroll-snap-align:start}
+.strip>*{scroll-snap-align:start}
+.strip img.g{flex:0 0 72%;max-width:72%;aspect-ratio:4/5;object-fit:cover;border-radius:14px}
+.mini{flex:0 0 64%;max-width:64%;border:0;padding:0;background:none;text-align:left;display:grid;gap:6px}
+.mini img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px}
+.mini b{font-family:var(--display);font-size:19px;text-transform:uppercase;letter-spacing:.03em}
+.mini span{font-size:13px;color:var(--muted)}
 .info{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;display:grid;gap:6px}
+.sea-band{position:relative;border-radius:18px;overflow:hidden;color:#fff;min-height:320px;display:grid;align-content:end}
+.sea-band .show{position:absolute;inset:0}
+.sea-band .txt{position:relative;z-index:2;padding:18px;display:grid;gap:6px}
+.sea-band p{margin:0;max-width:32ch;opacity:.92}
 
 /* menu */
 .mhead{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:12px 8px;display:grid;gap:10px;border-bottom:1px solid var(--line)}
@@ -86,7 +116,42 @@ section{padding-block:26px 6px;display:grid;gap:14px}
 .qty button.add{background:var(--sea);border-color:var(--sea);color:var(--on-sea)}
 .qty span{min-width:18px;text-align:center;font-weight:700}
 
-/* cards for rooms / experiences */
+/* stay */
+.notice{font-size:12.5px;color:var(--sun);border:1px dashed currentColor;border-radius:10px;padding:8px 10px;margin:0}
+.filters{display:flex;gap:6px;overflow-x:auto}
+.filters button{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;color:var(--muted)}
+.filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.rcard{position:relative;border:0;padding:0;border-radius:20px;overflow:hidden;text-align:left;color:#fff;background:#0b2a30;display:block;width:100%}
+.rcard img{width:100%;aspect-ratio:4/3.2;object-fit:cover;display:block;transition:transform 1.4s ease}
+.rcard:hover img{transform:scale(1.05)}
+.rcard .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,20,26,0) 40%,rgba(5,20,26,.88))}
+.rcard .meta{position:absolute;left:0;right:0;bottom:0;padding:16px;display:grid;gap:4px}
+.rcard .type{justify-self:start;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(255,255,255,.16);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:3px 10px}
+.rcard h3{font-size:28px}
+.rcard .sub{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;opacity:.95}
+.rcard .sub b{font-weight:700}
+
+/* room view (full screen) */
+.rv{position:fixed;inset:0;z-index:50;background:var(--bg);overflow-y:auto;overscroll-behavior:contain}
+.rv .show{height:min(66svh,560px);min-height:360px}
+.rv .back{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));left:max(16px,env(safe-area-inset-left,0px));z-index:3}
+.rv .head{position:absolute;left:0;right:0;bottom:26px;color:#fff;z-index:2;display:grid;gap:6px}
+.rv .head h2{font-size:44px}
+.rv .content{max-width:560px;margin:0 auto;padding-block:18px calc(40px + env(safe-area-inset-bottom,0px));display:grid;gap:18px}
+.facts3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.facts3 div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;display:grid;gap:2px;min-width:0}
+.facts3 small{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.facts3 b{font-size:14px}
+.amen{display:flex;flex-wrap:wrap;gap:6px}
+.amen span{font-size:13px;background:var(--chip);border-radius:8px;padding:4px 10px}
+.thumbs{display:flex;gap:8px;overflow-x:auto}
+.thumbs button{flex:0 0 auto;border:2px solid transparent;padding:0;border-radius:10px;overflow:hidden;background:none}
+.thumbs button[aria-pressed="true"]{border-color:var(--sea)}
+.thumbs img{width:84px;height:62px;object-fit:cover;display:block}
+.pricebox{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.pricebox b{font-family:var(--display);font-size:30px}
+
+/* cards for experiences */
 .card{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:grid}
 .card img{width:100%;max-width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
 .card .body{padding:14px;display:grid;gap:8px}
@@ -105,10 +170,10 @@ nav.tabs button[aria-current="page"]{color:var(--sea)}
 nav.tabs svg{width:22px;height:22px}
 
 /* sheet */
-.scrim{position:fixed;inset:0;background:rgba(4,16,20,.55);z-index:40;display:flex;align-items:flex-end;justify-content:center}
+.scrim{position:fixed;inset:0;background:rgba(4,16,20,.55);z-index:60;display:flex;align-items:flex-end;justify-content:center}
 .sheet{width:100%;max-width:560px;max-height:88%;overflow:auto;background:var(--bg);border-radius:20px 20px 0 0;padding-block:18px calc(18px + env(safe-area-inset-bottom,0px));display:grid;gap:14px;align-content:start}
 .sheet .grab{width:40px;height:4px;border-radius:4px;background:var(--line);justify-self:center}
-.field{display:grid;gap:4px}
+.field{display:grid;gap:4px;min-width:0}
 .field label{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
 .field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 12px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -116,7 +181,7 @@ nav.tabs svg{width:22px;height:22px}
 .total{display:flex;justify-content:space-between;font-family:var(--display);font-size:24px;text-transform:uppercase}
 .hint{font-size:12.5px;color:var(--muted);margin:0}
 .wa{font-size:13px;color:var(--muted);text-align:center;margin:0}
-@media (prefers-reduced-motion:no-preference){.sheet{animation:up .22s ease-out}@keyframes up{from{transform:translateY(24px);opacity:.6}}}
+@media (prefers-reduced-motion:no-preference){.sheet{animation:up .22s ease-out}@keyframes up{from{transform:translateY(24px);opacity:.6}}.rv{animation:fadein .35s ease-out}@keyframes fadein{from{opacity:0}}}
 </style>
 
 <div id="root"></div>
@@ -191,18 +256,57 @@ function build(list,kind){return list.map((c,ci)=>({...c,id:kind+"-"+ci,items:c.
 const MENU = {food:build(FOOD,"f"),drink:build(DRINK,"d")};
 const ITEMS = {}; [...MENU.food,...MENU.drink].forEach(c=>c.items.forEach(i=>ITEMS[i.id]=i));
 
-/* ===== QUARTOS E EXPERIÊNCIAS (exemplos para substituir) ===== */
+/* ===== QUARTOS (fotos e preços ilustrativos, substituir pelos reais) ===== */
 const ROOMS = [
- {id:"r1",name:"Bungalow Duplo",img:"noite",facts:["2 adultos","Cama de casal","A passos da praia"],text:"Bungalow de colmo junto ao passadiço, com acesso directo à areia."},
- {id:"r2",name:"Bungalow Família",img:"piscina",facts:["Até 4 pessoas","Perto da piscina"],text:"Espaço para a família, com a piscina e o bar ao lado."}
+ {id:"mare",name:"Maré",type:"Solteiro",kind:"solteiro",price:45000,photos:["quarto-surf","piscina-palmeira","mar-praia"],
+  guests:"1 pessoa",bed:"Cama de solteiro",view:"Jardim",
+  text:"Um quarto leve, com madeira clara e cortinas de linho. Pensado para quem vem sozinho, descansar ou trabalhar à beira-mar.",
+  amen:["Ar condicionado","Wi-Fi","Casa de banho privativa","Toalhas de praia"]},
+ {id:"areia",name:"Areia",type:"Casal",kind:"casal",price:65000,photos:["quarto-casal","mar-praia","piscina"],
+  guests:"2 pessoas",bed:"Cama de casal",view:"Jardim e piscina",
+  text:"Tons de areia e mar, cabeceira em madeira e luz suave ao fim do dia. O quarto clássico do resort, a poucos passos da piscina.",
+  amen:["Ar condicionado","Wi-Fi","Casa de banho privativa","Mini-bar","Toalhas de praia"]},
+ {id:"sereia",name:"Suite Sereia",type:"Casal Superior",kind:"casal",price:95000,photos:["quarto-dossel","cabana","piscina"],
+  guests:"2 pessoas",bed:"Cama king com dossel",view:"Mar",
+  text:"Cama com dossel, linho cru e o mar à vista. A suite para celebrações, luas-de-mel e fins de semana a dois.",
+  amen:["Ar condicionado","Wi-Fi","Casa de banho privativa","Mini-bar","Roupões","Cabana reservada na praia"]},
+ {id:"coral",name:"Coral",type:"Familiar",kind:"familiar",price:120000,photos:["quarto-azul","guarda-sois","piscina-palmeira"],
+  guests:"2 adultos e 2 crianças",bed:"Casal e 2 solteiro",view:"Piscina",
+  text:"Espaço para a família toda, com azul de mar e madeira. Perto da piscina e do bar, para os miúdos irem e voltarem sem complicações.",
+  amen:["Ar condicionado","Wi-Fi","Casa de banho privativa","Berço a pedido","Menu infantil"]},
+ {id:"lua",name:"Bungalow Lua",type:"Bungalow de praia",kind:"casal",price:110000,photos:["noite","quarto-casal","lounge"],
+  guests:"2 a 3 pessoas",bed:"Cama de casal e sofá-cama",view:"Praia",
+  text:"Bungalow de colmo junto ao passadiço, com a areia à porta. À noite, a lua sobre o mar e as luzes da fogueira ao fundo.",
+  amen:["Ar condicionado","Wi-Fi","Casa de banho privativa","Alpendre","Acesso directo à praia"]}
 ];
+/* ===== ALUGUER DE PRAIA ===== */
+const BEACH = [
+ {id:"espreguicadeira",name:"Espreguiçadeira e guarda-sol",type:"Praia",kind:"praia",price:10000,unit:"dia",photos:["guarda-sois","mar-praia"],
+  guests:"1 pessoa",bed:"Espreguiçadeira",view:"Mar",text:"Lugar na primeira linha, sob guarda-sol de colmo, com serviço de bar à espreguiçadeira.",amen:["Toalha","Serviço de bar","Guarda-sol de colmo"]},
+ {id:"cabana",name:"Cabana privada",type:"Praia",kind:"praia",price:35000,unit:"dia",photos:["cabana","lounge2","margaritas"],
+  guests:"Até 2 pessoas",bed:"2 espreguiçadeiras",view:"Mar",text:"Cortinas brancas ao vento, duas espreguiçadeiras e o mar à frente. O bar serve-vos lá.",amen:["Toalhas","Água fresca","Serviço de bar","Sombra todo o dia"]},
+ {id:"daybed",name:"Day bed na piscina",type:"Piscina",kind:"praia",price:20000,unit:"dia",photos:["piscina-palmeira","piscina"],
+  guests:"Até 2 pessoas",bed:"Day bed",view:"Piscina",text:"Day bed largo à sombra das palmeiras, junto à água da piscina.",amen:["Toalhas","Serviço de bar","Sombra"]},
+ {id:"lounge",name:"Lounge de grupo",type:"Praia",kind:"praia",price:60000,unit:"dia",photos:["lounge","lounge2","fogueira"],
+  guests:"Até 8 pessoas",bed:"Sofás e mesas",view:"Mar",text:"Uma zona inteira para o grupo, com sofás, mesas e cortinas. Ideal para aniversários e encontros de amigos.",amen:["Reserva do espaço","Serviço de bar","Música a pedido"]}
+];
+const ALL_STAY = Object.fromEntries([...ROOMS,...BEACH].map(r=>[r.id,r]));
+
 const EXPS = [
  {id:"e1",name:"Passeio a cavalo",img:"cavalos",facts:["Na praia","Com guia"],text:"Um passeio a cavalo pela beira-mar, ao ritmo das ondas."},
- {id:"e2",name:"Cabana privada",img:"cabana",facts:["Dia inteiro","2 espreguiçadeiras"],text:"Cortinas brancas, duas espreguiçadeiras e o mar à frente. O bar serve-vos lá."},
- {id:"e3",name:"Noite de fogueira",img:"fogueira",facts:["Ao anoitecer","Grupos"],text:"Bancos em roda, luzes no ar e fogo na areia. Ideal para grupos e celebrações."},
- {id:"e4",name:"Lounge ao pôr do sol",img:"lounge",facts:["Fim de tarde","Sangria ou cocktails"],text:"Mesa reservada no lounge da praia para ver o sol descer sobre o mar."}
+ {id:"e2",name:"Noite de fogueira",img:"fogueira",facts:["Ao anoitecer","Grupos"],text:"Bancos em roda, luzes no ar e fogo na areia. Ideal para grupos e celebrações."},
+ {id:"e3",name:"Lounge ao pôr do sol",img:"lounge",facts:["Fim de tarde","Sangria ou cocktails"],text:"Mesa reservada no lounge da praia para ver o sol descer sobre o mar."},
+ {id:"e4",name:"Passeio de barco",img:"ilha",facts:["Baía","Meio dia"],text:"Saída pela baía de águas calmas, com paragem num banco de areia para um mergulho."}
 ];
-const GALLERY = ["piscina","cabana","lounge","noite","cavalos","fogueira"];
+const HERO = [
+ {k:"piscina",ox:"50%",oy:"60%",tx:"-2%",ty:"-2%"},
+ {k:"mar-praia",ox:"30%",oy:"50%",tx:"2%",ty:"-1%"},
+ {k:"cabana",ox:"60%",oy:"55%",tx:"-1.5%",ty:"1%"},
+ {k:"lounge2",ox:"50%",oy:"50%",tx:"2%",ty:"-1%"},
+ {k:"noite",ox:"60%",oy:"30%",tx:"-1%",ty:"2%"}
+];
+const SEA = [{k:"ilha",ox:"40%",oy:"60%"},{k:"mar-praia",ox:"60%",oy:"50%",tx:"2%"},{k:"guarda-sois",ox:"50%",oy:"50%"}];
+const GALLERY = ["mar-praia","piscina-palmeira","cabana","guarda-sois","lounge","ilha","noite","cavalos","fogueira"];
 
 /* ===== TEXTOS PT / EN ===== */
 const T = {
@@ -212,11 +316,16 @@ const T = {
   cartTitle:"O seu pedido",where:"Onde entregar",atResort:"Já estou no resort",pre:"Pré-encomenda para a chegada",
   place:"Local",number:"Número",name:"Nome",notes:"Observações",date:"Data",time:"Hora",send:"Enviar pelo WhatsApp",
   total:"Total",empty:"Ainda não escolheu nada.",reserve:"Pedir reserva",checkin:"Entrada",checkout:"Saída",people:"Pessoas",
-  example:"Exemplo · substituir pelos dados reais",onRequest:"Preço sob consulta",close:"Fechar",
+  example:"Exemplo · substituir pelos dados reais",onRequest:"Preço sob consulta",close:"Fechar",back:"Voltar",
   waNote:"Abre o WhatsApp com a mensagem pronta. O pedido só segue quando carregar em enviar.",
   gallery:"O resort",getThere:"Como chegar",getThereText:"Peça a localização e as indicações de acesso pelo WhatsApp. Respondemos com o caminho mais simples a partir de Luanda.",
   askWay:"Pedir indicações",updated:"Cartas",preTitle:"Chegue com a mesa pronta",preText:"Escolha do menu e marque a hora de chegada. Quando chegar, está à sua espera.",
-  stayText:"Bungalows na areia, a poucos passos do mar.",expText:"Coisas para viver no resort. Reserve antes de chegar.",
+  stayText:"Quartos para dormir com o mar ao lado, e lugares na praia para alugar ao dia.",expText:"Coisas para viver no resort. Reserve antes de chegar.",
+  rooms:"Quartos",beach:"Praia e piscina",all:"Todos",from:"desde",night:"noite",day:"dia",guests:"Hóspedes",bed:"Cama",view:"Vista",
+  nights:"noites",estimate:"Estimativa",units:"Quantidade",illustrative:"Fotos e preços ilustrativos, para ver como fica. Substituir pelos reais antes de lançar.",
+  seeRooms:"Ver quartos",ourRooms:"Onde vai dormir",seaTitle:"O mar à porta",seaText:"Águas calmas, areia clara e palmeiras. Os dias aqui começam e acabam na praia.",
+  rentBeach:"Alugar na praia",includes:"Inclui",
+  kinds:{solteiro:"Solteiro",casal:"Casal",familiar:"Familiar",praia:"Praia"},
   spots:{cabana:"Cabana",mesa:"Mesa",quarto:"Quarto",espreguicadeira:"Espreguiçadeira",lounge:"Lounge"}},
  en:{home:"Home",menu:"Menu",stay:"Stay",exp:"Experiences",tag:"Beach, sun and a table set for you. Get to know the resort before you arrive.",
   explore:"Explore",seeMenu:"See the menu",food:"Food",drink:"Drinks",search:"Search dishes or drinks",
@@ -224,11 +333,16 @@ const T = {
   cartTitle:"Your order",where:"Where to deliver",atResort:"I'm at the resort",pre:"Pre-order for arrival",
   place:"Spot",number:"Number",name:"Name",notes:"Notes",date:"Date",time:"Time",send:"Send via WhatsApp",
   total:"Total",empty:"Nothing chosen yet.",reserve:"Request booking",checkin:"Check-in",checkout:"Check-out",people:"Guests",
-  example:"Example · replace with real details",onRequest:"Price on request",close:"Close",
+  example:"Example · replace with real details",onRequest:"Price on request",close:"Close",back:"Back",
   waNote:"Opens WhatsApp with the message ready. Nothing is sent until you press send.",
   gallery:"The resort",getThere:"Getting here",getThereText:"Ask for the location and directions on WhatsApp. We reply with the easiest route from Luanda.",
   askWay:"Ask for directions",updated:"Menus",preTitle:"Arrive to a table ready",preText:"Choose from the menu and set your arrival time. It will be waiting for you.",
-  stayText:"Bungalows on the sand, a few steps from the sea.",expText:"Things to do at the resort. Book before you arrive.",
+  stayText:"Rooms to sleep by the sea, and beach spots to rent by the day.",expText:"Things to do at the resort. Book before you arrive.",
+  rooms:"Rooms",beach:"Beach and pool",all:"All",from:"from",night:"night",day:"day",guests:"Guests",bed:"Bed",view:"View",
+  nights:"nights",estimate:"Estimate",units:"Quantity",illustrative:"Illustrative photos and prices, to preview the layout. Replace with real ones before launch.",
+  seeRooms:"See rooms",ourRooms:"Where you'll sleep",seaTitle:"The sea at your door",seaText:"Calm water, pale sand and palm trees. Days here start and end on the beach.",
+  rentBeach:"Rent on the beach",includes:"Includes",
+  kinds:{solteiro:"Single",casal:"Double",familiar:"Family",praia:"Beach"},
   spots:{cabana:"Cabana",mesa:"Table",quarto:"Room",espreguicadeira:"Sunbed",lounge:"Lounge"}}
 };
 
@@ -237,9 +351,28 @@ const wa = msg => "https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(m
 const img = k => "img/"+k+".jpg";
 function store(k,v){try{if(v===undefined){return JSON.parse(localStorage.getItem(k))}localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
 function readSpot(){const h=(location.hash||"").slice(1).toLowerCase();const m=h.match(/^(cabana|mesa|quarto|espreguicadeira|lounge)-?(\d+)$/);return m?{type:m[1],n:m[2]}:null}
+function readRoom(){const h=(location.hash||"").slice(1).toLowerCase();return ALL_STAY[h]?h:null}
+const reduced = (()=>{try{return matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){return false}})();
 
-const {useState,useEffect,useMemo,useRef} = React;
+const {useState,useEffect,useMemo} = React;
 const html = htm.bind(React.createElement);
+
+/* preload images so crossfades never flash */
+[...new Set([...HERO.map(h=>h.k),...ROOMS.flatMap(r=>r.photos)])].forEach(k=>{const i=new Image();i.src=img(k)});
+
+function Show({slides,interval=6000,intro=false,dur="11s",index,onIndex,label}){
+ const [own,setOwn]=useState(0);
+ const i=index??own; const set=onIndex??setOwn;
+ const [prev,setPrev]=useState(-1);
+ useEffect(()=>{if(reduced||slides.length<2)return;const t=setTimeout(()=>{setPrev(i);set((i+1)%slides.length)},interval);return()=>clearTimeout(t)},[i,slides.length]);
+ return html`<div class=${"show"+(intro?" intro":"")} role="img" aria-label=${label||""}>
+  ${slides.map((s,n)=>{const o=typeof s==="string"?{k:s}:s;return html`<div key=${o.k+n} class=${"slide"+(n===i?" on":"")+(n===prev?" prev":"")+(n===0?" first":"")}
+     style=${{"--ox":o.ox||"50%","--oy":o.oy||"50%","--tx":o.tx||"-2%","--ty":o.ty||"-1.5%","--dur":dur}}>
+     <img src=${img(o.k)} alt="" loading=${n===0?"eager":"lazy"} decoding="async"/></div>`})}
+  <div class="veil"></div>
+  ${slides.length>1&&html`<div class="dots" aria-hidden="true">${slides.map((_,n)=>html`<i key=${n} class=${n===i?"on":""}></i>`)}</div>`}
+ </div>`;
+}
 
 const Icon = ({d}) => html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d.map((p,i)=>html`<path key=${i} d=${p}/>`)}</svg>`;
 const ICONS = {
@@ -252,30 +385,34 @@ const ICONS = {
 function App(){
  const [lang,setLang]=useState(()=>store("nv-lang")||"pt");
  const t=T[lang];
- const [tab,setTab]=useState("home");
+ const [tab,setTab]=useState(()=>readRoom()?"stay":"home");
  const [kind,setKind]=useState("food");
  const [q,setQ]=useState("");
  const [cart,setCart]=useState(()=>store("nv-cart")||{});
  const [spot,setSpot]=useState(readSpot);
+ const [room,setRoom]=useState(readRoom);
  const [sheet,setSheet]=useState(null);
+ const [stayFilter,setStayFilter]=useState("rooms");
  useEffect(()=>{store("nv-cart",cart)},[cart]);
  useEffect(()=>{store("nv-lang",lang)},[lang]);
- useEffect(()=>{const f=()=>setSpot(readSpot());addEventListener("hashchange",f);return()=>removeEventListener("hashchange",f)},[]);
+ useEffect(()=>{const f=()=>{setSpot(readSpot());setRoom(readRoom())};addEventListener("hashchange",f);return()=>removeEventListener("hashchange",f)},[]);
  useEffect(()=>{window.scrollTo(0,0)},[tab]);
+ useEffect(()=>{document.body.style.overflow=room?"hidden":"";},[room]);
 
  const count=Object.values(cart).reduce((a,b)=>a+b,0);
  const total=Object.entries(cart).reduce((s,[id,n])=>s+(ITEMS[id]?.price||0)*n,0);
  const add=(id,d)=>setCart(c=>{const n=Math.max(0,(c[id]||0)+d);const x={...c};if(n)x[id]=n;else delete x[id];return x});
  const spotLabel=spot?t.spots[spot.type]+" "+spot.n:null;
- const go=(tb,k)=>{if(k)setKind(k);setTab(tb)};
+ const go=(tb,k)=>{if(k&&tb==="menu")setKind(k);if(k&&tb==="stay")setStayFilter(k);setTab(tb)};
+ const openRoom=id=>setRoom(id);
 
  return html`<div class="app">
-  ${tab==="home"&&html`<${Home} t=${t} lang=${lang} setLang=${setLang} spotLabel=${spotLabel} go=${go} openPre=${()=>{go("menu","food")}}/>`}
+  ${tab==="home"&&html`<${Home} t=${t} lang=${lang} setLang=${setLang} spotLabel=${spotLabel} go=${go} openRoom=${openRoom}/>`}
   ${tab==="menu"&&html`<${Menu} t=${t} kind=${kind} setKind=${setKind} q=${q} setQ=${setQ} cart=${cart} add=${add}/>`}
-  ${tab==="stay"&&html`<${Cards} t=${t} title=${t.stay} intro=${t.stayText} list=${ROOMS} onPick=${r=>setSheet({type:"room",item:r})}/>`}
-  ${tab==="exp"&&html`<${Cards} t=${t} title=${t.exp} intro=${t.expText} list=${EXPS} onPick=${r=>setSheet({type:"exp",item:r})}/>`}
+  ${tab==="stay"&&html`<${Stay} t=${t} filter=${stayFilter} setFilter=${setStayFilter} openRoom=${openRoom}/>`}
+  ${tab==="exp"&&html`<${Exps} t=${t} onPick=${r=>setSheet({type:"exp",item:r})}/>`}
 
-  ${count>0&&!sheet&&html`<div class="cartbar"><div class="in"><button onClick=${()=>setSheet({type:"cart"})}>
+  ${count>0&&!sheet&&!room&&html`<div class="cartbar"><div class="in"><button onClick=${()=>setSheet({type:"cart"})}>
      <span>${t.order} · ${count} ${t.items}</span><span class="num">${kz(total)}</span></button></div></div>`}
 
   <nav class="tabs" aria-label="Secções"><div class="in">
@@ -283,25 +420,30 @@ function App(){
     <button key=${k} aria-current=${tab===k?"page":undefined} onClick=${()=>setTab(k)}><${Icon} d=${ICONS[k]}/>${l}</button>`)}
   </div></nav>
 
+  ${room&&html`<${RoomView} t=${t} r=${ALL_STAY[room]} close=${()=>{setRoom(null);if(location.hash.slice(1)===room)history.replaceState(null,"",location.pathname)}}/>`}
+
   ${sheet&&html`<div class="scrim" onClick=${e=>{if(e.target===e.currentTarget)setSheet(null)}}>
    <div class="sheet pad" role="dialog" aria-modal="true">
     <div class="grab"></div>
     ${sheet.type==="cart"
       ? html`<${Cart} t=${t} cart=${cart} add=${add} total=${total} spot=${spot} close=${()=>setSheet(null)}/>`
-      : html`<${Booking} t=${t} kind=${sheet.type} item=${sheet.item} close=${()=>setSheet(null)}/>`}
+      : html`<${ExpBooking} t=${t} item=${sheet.item} close=${()=>setSheet(null)}/>`}
    </div></div>`}
  </div>`;
 }
 
-function Home({t,lang,setLang,spotLabel,go}){
+function Home({t,lang,setLang,spotLabel,go,openRoom}){
  const spotMsg=k=>wa((k==="bill"?"Olá, peço a conta, por favor.":"Olá, podem vir atender-nos, por favor?")+"\nLocal: "+spotLabel);
  return html`<div>
   <div class="hero">
-   <img class="bg" src=${img("piscina")} alt="Piscina do Nerida Villa ao pôr do sol, com a praia ao fundo"/>
-   <div class="veil"></div>
-   <img class="logo-badge" src="img/logo.png" alt="Nerida Villa"/>
-   <div class="top pad"><button class="pill" onClick=${()=>setLang(lang==="pt"?"en":"pt")} aria-label="Mudar língua">${lang==="pt"?"EN":"PT"}</button></div>
-   <div class="copy pad"><span class="eyebrow" style=${{color:"#f1d48a"}}>Resort de praia · Angola</span><h1>Nerida Villa</h1><p>${t.tag}</p></div>
+   <${Show} slides=${HERO} intro=${true} interval=${6500} dur="12s" label="Fotografias do Nerida Villa"/>
+   <div class="top pad">
+    <img class="logo-badge rise" src="img/logo.png" alt="Nerida Villa"/>
+    <button class="pill" onClick=${()=>setLang(lang==="pt"?"en":"pt")} aria-label="Mudar língua">${lang==="pt"?"EN":"PT"}</button></div>
+   <div class="copy pad">
+    <span class="eyebrow rise d1" style=${{color:"#f1d48a"}}>Resort de praia · Angola</span>
+    <h1 class="rise d2">Nerida Villa</h1>
+    <p class="rise d3">${t.tag}</p></div>
   </div>
   <div class="pad">
    ${spotLabel&&html`<div class="spot">
@@ -316,8 +458,20 @@ function Home({t,lang,setLang,spotLabel,go}){
     <div class="tiles">
      <button class="tile" onClick=${()=>go("menu","food")}><img src=${img("ananas")} alt=""/><span>${t.food}<small>Peixe, marisco, grelhados</small></span></button>
      <button class="tile" onClick=${()=>go("menu","drink")}><img src=${img("granizado")} alt=""/><span>${t.drink}<small>Cocktails, sangrias, vinhos</small></span></button>
-     <button class="tile" onClick=${()=>go("stay")}><img src=${img("noite")} alt=""/><span>${t.stay}<small>Bungalows na areia</small></span></button>
-     <button class="tile" onClick=${()=>go("exp")}><img src=${img("cavalos")} alt=""/><span>${t.exp}<small>Cavalos, cabanas, fogueira</small></span></button>
+     <button class="tile" onClick=${()=>go("stay","rooms")}><img src=${img("quarto-dossel")} alt=""/><span>${t.rooms}<small>Solteiro, casal, familiar</small></span></button>
+     <button class="tile" onClick=${()=>go("stay","beach")}><img src=${img("guarda-sois")} alt=""/><span>${t.rentBeach}<small>Cabanas, espreguiçadeiras</small></span></button>
+    </div>
+   </section>
+   <section>
+    <div class="sechead"><h2>${t.ourRooms}</h2><button class="link" onClick=${()=>go("stay","rooms")}>${t.seeRooms}</button></div>
+    <div class="strip">${ROOMS.map(r=>html`<button key=${r.id} class="mini" onClick=${()=>openRoom(r.id)}>
+      <img src=${img(r.photos[0])} alt="" loading="lazy"/>
+      <b>${r.name}</b><span>${r.type} · ${t.from} <span class="num">${kz(r.price)}</span></span></button>`)}</div>
+   </section>
+   <section>
+    <div class="sea-band">
+     <${Show} slides=${SEA} interval=${5500} dur="10s" label="O mar junto ao resort"/>
+     <div class="txt"><span class="eyebrow" style=${{color:"#f1d48a"}}>Baía</span><h2>${t.seaTitle}</h2><p>${t.seaText}</p></div>
     </div>
    </section>
    <section>
@@ -326,7 +480,7 @@ function Home({t,lang,setLang,spotLabel,go}){
    </section>
    <section>
     <h2>${t.gallery}</h2>
-    <div class="strip">${GALLERY.map(k=>html`<img key=${k} src=${img(k)} alt="" loading="lazy"/>`)}</div>
+    <div class="strip">${GALLERY.map(k=>html`<img class="g" key=${k} src=${img(k)} alt="" loading="lazy"/>`)}</div>
    </section>
    <section>
     <div class="info"><h3>${t.getThere}</h3><p class="hint" style=${{fontSize:"14px"}}>${t.getThereText}</p>
@@ -334,6 +488,86 @@ function Home({t,lang,setLang,spotLabel,go}){
      <p class="hint">WhatsApp: <span style=${{userSelect:"all"}}>${CONFIG.whatsappLabel}</span></p></div>
    </section>
   </div></div>`;
+}
+
+function Stay({t,filter,setFilter,openRoom}){
+ const [kindF,setKindF]=useState("all");
+ const list = filter==="beach" ? BEACH : ROOMS.filter(r=>kindF==="all"||r.kind===kindF);
+ return html`<div class="pad"><section>
+  <h2>${t.stay}</h2><p class="muted" style=${{margin:0}}>${t.stayText}</p>
+  <div class="seg"><button aria-pressed=${filter==="rooms"} onClick=${()=>setFilter("rooms")}>${t.rooms}</button><button aria-pressed=${filter==="beach"} onClick=${()=>setFilter("beach")}>${t.beach}</button></div>
+  ${filter==="rooms"&&html`<div class="filters">${["all","solteiro","casal","familiar"].map(k=>html`<button key=${k} aria-pressed=${kindF===k} onClick=${()=>setKindF(k)}>${k==="all"?t.all:t.kinds[k]}</button>`)}</div>`}
+  <p class="notice">${t.illustrative}</p>
+  ${list.map(r=>html`<button class="rcard" key=${r.id} onClick=${()=>openRoom(r.id)}>
+    <img src=${img(r.photos[0])} alt="" loading="lazy"/><div class="shade"></div>
+    <div class="meta"><span class="type">${r.type}</span><h3>${r.name}</h3>
+     <div class="sub"><span>${r.guests} · ${r.bed}</span><span>${t.from} <b class="num">${kz(r.price)}</b> / ${r.unit==="dia"?t.day:t.night}</span></div></div>
+  </button>`)}
+ </section></div>`;
+}
+
+function RoomView({t,r,close}){
+ const [i,setI]=useState(0);
+ const isBeach=r.kind==="praia";
+ const [f,setF]=useState({name:"",a:"",b:"",p:"",u:"1",notes:""});
+ const set=k=>e=>setF({...f,[k]:e.target.value});
+ useEffect(()=>{const k=e=>{if(e.key==="Escape")close()};addEventListener("keydown",k);return()=>removeEventListener("keydown",k)},[]);
+ const nights=(!isBeach&&f.a&&f.b)?Math.max(0,Math.round((new Date(f.b)-new Date(f.a))/864e5)):0;
+ const est=isBeach?r.price*(parseInt(f.u)||1):nights*r.price;
+ const msg=["Olá, gostaria de pedir uma reserva no Nerida Villa.",
+  (isBeach?"Aluguer: ":"Quarto: ")+r.name+" ("+r.type+")",
+  isBeach?`${t.date}: ${f.a||"?"} · ${t.units}: ${f.u}`:`${t.checkin}: ${f.a||"?"} · ${t.checkout}: ${f.b||"?"}${nights?" ("+nights+" "+t.nights+")":""}`,
+  f.p&&`${t.people}: ${f.p}`, est?`${t.estimate}: ${kz(est)}`:null, f.name&&`Nome: ${f.name}`, f.notes&&`Obs: ${f.notes}`].filter(Boolean).join("\n");
+ return html`<div class="rv" role="dialog" aria-modal="true" aria-label=${r.name}>
+  <div style=${{position:"relative",color:"#fff"}}>
+   <${Show} slides=${r.photos.map((k,n)=>({k,ox:n%2?"30%":"60%",oy:"50%",tx:n%2?"2%":"-2%"}))} intro=${true} index=${i} onIndex=${setI} interval=${7000} dur="13s" label=${r.name}/>
+   <button class="pill back" onClick=${close}>← ${t.back}</button>
+   <div class="head pad" style=${{maxWidth:"560px",margin:"0 auto"}}>
+    <span class="eyebrow rise d1" style=${{color:"#f1d48a"}}>${r.type}</span>
+    <h2 class="rise d2">${r.name}</h2>
+    <span class="rise d3" style=${{opacity:.92}}>${t.from} <b class="num">${kz(r.price)}</b> / ${isBeach?t.day:t.night}</span>
+   </div>
+  </div>
+  <div class="content pad">
+   <div class="thumbs">${r.photos.map((k,n)=>html`<button key=${k} aria-pressed=${i===n} onClick=${()=>setI(n)} aria-label=${"Foto "+(n+1)}><img src=${img(k)} alt=""/></button>`)}</div>
+   <p style=${{margin:0,fontSize:"16px"}}>${r.text}</p>
+   <div class="facts3">
+    <div><small>${t.guests}</small><b>${r.guests}</b></div>
+    <div><small>${isBeach?"Tipo":t.bed}</small><b>${r.bed}</b></div>
+    <div><small>${t.view}</small><b>${r.view}</b></div>
+   </div>
+   <div style=${{display:"grid",gap:"8px"}}><span class="eyebrow">${t.includes}</span><div class="amen">${r.amen.map(a=>html`<span key=${a}>${a}</span>`)}</div></div>
+   <p class="notice">${t.illustrative}</p>
+   <div class="info" style=${{gap:"12px"}}>
+    <h3>${t.reserve}</h3>
+    <div class="field"><label for="rv-name">${t.name}</label><input id="rv-name" value=${f.name} onInput=${set("name")} autocomplete="name"/></div>
+    ${isBeach
+     ?html`<div class="two"><div class="field"><label for="rv-a">${t.date}</label><input id="rv-a" type="date" value=${f.a} onInput=${set("a")}/></div>
+        <div class="field"><label for="rv-u">${t.units}</label><input id="rv-u" type="number" min="1" value=${f.u} onInput=${set("u")}/></div></div>`
+     :html`<div class="two"><div class="field"><label for="rv-a">${t.checkin}</label><input id="rv-a" type="date" value=${f.a} onInput=${set("a")}/></div>
+        <div class="field"><label for="rv-b">${t.checkout}</label><input id="rv-b" type="date" value=${f.b} onInput=${set("b")}/></div></div>
+        <div class="field"><label for="rv-p">${t.people}</label><input id="rv-p" type="number" min="1" value=${f.p} onInput=${set("p")}/></div>`}
+    <div class="field"><label for="rv-notes">${t.notes}</label><textarea id="rv-notes" rows="2" value=${f.notes} onInput=${set("notes")} placeholder="Aniversário, lua-de-mel, hora de chegada…"></textarea></div>
+    <div class="pricebox"><span class="muted">${est?t.estimate+(nights?" · "+nights+" "+t.nights:""):t.from}</span><b class="num">${kz(est||r.price)}</b></div>
+    <a class="btn block" href=${wa(msg)} target="_blank" rel="noopener">${t.send}</a>
+    <p class="wa">${t.waNote}</p>
+   </div>
+  </div>
+ </div>`;
+}
+
+function Exps({t,onPick}){
+ return html`<div class="pad"><section>
+  <h2>${t.exp}</h2><p class="muted" style=${{margin:0}}>${t.expText}</p>
+  ${EXPS.map(r=>html`<article class="card" key=${r.id}>
+   <img src=${img(r.img)} alt="" loading="lazy"/>
+   <div class="body"><span class="example">${t.example}</span><h3>${r.name}</h3>
+    <div class="facts">${r.facts.map(f=>html`<span key=${f}>${f}</span>`)}</div>
+    <p style=${{margin:0}}>${r.text}</p>
+    <div class="row" style=${{justifyContent:"space-between"}}><span class="muted">${t.onRequest}</span>
+     <button class="btn" onClick=${()=>onPick(r)}>${t.reserve}</button></div></div>
+  </article>`)}
+ </section></div>`;
 }
 
 function Menu({t,kind,setKind,q,setQ,cart,add}){
@@ -371,38 +605,19 @@ function Menu({t,kind,setKind,q,setQ,cart,add}){
   </div></div>`;
 }
 
-function Cards({t,title,intro,list,onPick}){
- return html`<div class="pad"><section>
-  <h2>${title}</h2><p class="muted" style=${{margin:0}}>${intro}</p>
-  ${list.map(r=>html`<article class="card" key=${r.id}>
-   <img src=${img(r.img)} alt="" loading="lazy"/>
-   <div class="body"><span class="example">${t.example}</span><h3>${r.name}</h3>
-    <div class="facts">${r.facts.map(f=>html`<span key=${f}>${f}</span>`)}</div>
-    <p style=${{margin:0}}>${r.text}</p>
-    <div class="row" style=${{justifyContent:"space-between"}}><span class="muted">${t.onRequest}</span>
-     <button class="btn" onClick=${()=>onPick(r)}>${t.reserve}</button></div></div>
-  </article>`)}
- </section></div>`;
-}
-
-function Booking({t,kind,item,close}){
- const [f,setF]=useState({name:"",a:"",b:"",p:"2",notes:""});
+function ExpBooking({t,item,close}){
+ const [f,setF]=useState({name:"",a:"",p:"2",notes:""});
  const set=k=>e=>setF({...f,[k]:e.target.value});
- const msg=["Olá, gostaria de pedir uma reserva no Nerida Villa.",
-  (kind==="room"?"Quarto: ":"Experiência: ")+item.name,
-  kind==="room"?`${t.checkin}: ${f.a||"?"} · ${t.checkout}: ${f.b||"?"}`:`${t.date}: ${f.a||"?"}`,
-  `${t.people}: ${f.p}`, f.name&&`Nome: ${f.name}`, f.notes&&`Obs: ${f.notes}`].filter(Boolean).join("\n");
+ const msg=["Olá, gostaria de pedir uma reserva no Nerida Villa.","Experiência: "+item.name,`${t.date}: ${f.a||"?"}`,`${t.people}: ${f.p}`,
+  f.name&&`Nome: ${f.name}`, f.notes&&`Obs: ${f.notes}`].filter(Boolean).join("\n");
  return html`<${React.Fragment}>
   <div class="row" style=${{justifyContent:"space-between"}}><h2>${item.name}</h2><button class="btn ghost" onClick=${close}>${t.close}</button></div>
   <div class="field"><label for="bk-name">${t.name}</label><input id="bk-name" value=${f.name} onInput=${set("name")} autocomplete="name"/></div>
   <div class="two">
-   <div class="field"><label for="bk-a">${kind==="room"?t.checkin:t.date}</label><input id="bk-a" type="date" value=${f.a} onInput=${set("a")}/></div>
-   ${kind==="room"
-    ?html`<div class="field"><label for="bk-b">${t.checkout}</label><input id="bk-b" type="date" value=${f.b} onInput=${set("b")}/></div>`
-    :html`<div class="field"><label for="bk-p">${t.people}</label><input id="bk-p" type="number" min="1" value=${f.p} onInput=${set("p")}/></div>`}
+   <div class="field"><label for="bk-a">${t.date}</label><input id="bk-a" type="date" value=${f.a} onInput=${set("a")}/></div>
+   <div class="field"><label for="bk-p">${t.people}</label><input id="bk-p" type="number" min="1" value=${f.p} onInput=${set("p")}/></div>
   </div>
-  ${kind==="room"&&html`<div class="field"><label for="bk-p2">${t.people}</label><input id="bk-p2" type="number" min="1" value=${f.p} onInput=${set("p")}/></div>`}
-  <div class="field"><label for="bk-notes">${t.notes}</label><textarea id="bk-notes" rows="2" value=${f.notes} onInput=${set("notes")} placeholder="Aniversário, lua-de-mel, hora de chegada…"></textarea></div>
+  <div class="field"><label for="bk-notes">${t.notes}</label><textarea id="bk-notes" rows="2" value=${f.notes} onInput=${set("notes")}></textarea></div>
   <a class="btn block" href=${wa(msg)} target="_blank" rel="noopener">${t.send}</a>
   <p class="wa">${t.waNote}</p>
  <//>`;
