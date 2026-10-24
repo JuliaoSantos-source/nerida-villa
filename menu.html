@@ -1,0 +1,370 @@
+<!doctype html><html lang="pt"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b8794"><link rel="icon" href="img/logo.png"><meta property="og:title" content="Menu Nerida Villa"><meta property="og:description" content="Menu de comida e bebidas do Nerida Villa."><meta property="og:image" content="img/margaritas.jpg"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>Menu Nerida Villa</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@500;700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one phone-width column, photo-led, slow cinematic photo motion; tab bar and cart fixed to the screen edges */
+:root{
+  --bg:#f4f7f6; --surface:#ffffff; --ink:#0f2a2e; --muted:#587074; --line:#dbe5e4;
+  --sea:#0b8794; --sea-2:#1fb3c2; --sun:#a87f22; --chip:#e8eeed; --on-sea:#ffffff;
+  --shadow:0 10px 30px -18px rgba(15,42,46,.45);
+  --display:"Antonio","Oswald","Arial Narrow",sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0a1820; --surface:#10242e; --ink:#e6f0f0; --muted:#8fa7ad; --line:#1f3a48;
+  --sea:#2fc0cd; --sea-2:#5fd6e1; --sun:#d8b14d; --chip:#18303c; --on-sea:#06222a;
+  --shadow:0 10px 30px -18px rgba(0,0,0,.8); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0a1820; --surface:#10242e; --ink:#e6f0f0; --muted:#8fa7ad; --line:#1f3a48;
+  --sea:#2fc0cd; --sea-2:#5fd6e1; --sun:#d8b14d; --chip:#18303c; --on-sea:#06222a;
+  --shadow:0 10px 30px -18px rgba(0,0,0,.8); color-scheme:dark}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink)}
+body{font-family:var(--body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--sea);outline-offset:2px;border-radius:6px}
+.app{max-width:560px;margin:0 auto;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+.pad{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:.02em;text-transform:uppercase;margin:0;text-wrap:balance;line-height:1.05}
+h2{font-size:30px} h3{font-size:20px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sun)}
+.muted{color:var(--muted)}
+.num{font-variant-numeric:tabular-nums}
+
+/* ===== slow-motion slideshow ===== */
+.show{position:relative;overflow:hidden;background:#0b2a30;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
+.show img{-webkit-user-drag:none;pointer-events:none}
+.hero .copy,.rv .head,.sea-band .txt{pointer-events:none}.show .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.8s ease}
+.show .slide.on{opacity:1}
+.show .slide img{width:100%;height:100%;object-fit:cover;display:block;transform-origin:var(--ox,50%) var(--oy,50%)}
+@media (prefers-reduced-motion:no-preference){
+  .show .slide.on img,.show .slide.prev img{animation:kb var(--dur,11s) linear forwards}
+  .show.intro .slide.first.on img{animation:enter 2.6s cubic-bezier(.16,.8,.2,1) forwards, kb var(--dur,11s) linear 2.6s forwards}
+  .rise{animation:rise 1.2s cubic-bezier(.2,.8,.2,1) both}
+  .rise.d1{animation-delay:.5s}.rise.d2{animation-delay:.8s}.rise.d3{animation-delay:1.1s}
+}
+@keyframes kb{from{transform:scale(1.04)}to{transform:scale(1.16) translate(var(--tx,-2%),var(--ty,-1.5%))}}
+@keyframes enter{from{transform:scale(1.32);filter:brightness(.55) saturate(.7) blur(2px)}to{transform:scale(1.04);filter:none}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+.show .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,24,30,.25) 0%,rgba(6,24,30,0) 30%,rgba(6,24,30,0) 50%,rgba(6,24,30,.82) 100%);pointer-events:none}
+.dots{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:14px;display:flex;gap:5px;z-index:2}
+.dots i{width:6px;height:6px;border-radius:6px;background:rgba(255,255,255,.45);transition:width .4s}
+.dots i.on{width:18px;background:#fff}
+
+/* hero */
+.hero{position:relative;color:#fff}
+.hero .show{height:min(74svh,620px);min-height:420px}
+.hero .top{position:absolute;top:12px;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;z-index:2}
+.hero .copy{position:absolute;left:0;right:0;bottom:30px;display:grid;gap:6px;z-index:2}
+.hero h1{font-size:58px;letter-spacing:.04em}
+.hero p{margin:0;max-width:34ch;font-size:16px;opacity:.92}
+.pill{border:1px solid rgba(255,255,255,.55);background:rgba(6,24,30,.35);backdrop-filter:blur(6px);color:#fff;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600}
+.logo-badge{width:66px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.35))}
+
+.spot{margin-top:-14px;position:relative;z-index:3;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:14px;display:grid;gap:10px}
+.spot b{font-family:var(--display);font-size:22px;letter-spacing:.03em;text-transform:uppercase}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{border:0;border-radius:12px;padding:11px 16px;font-weight:600;background:var(--sea);color:var(--on-sea);text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn.ghost{background:var(--chip);color:var(--ink)}
+.btn.block{width:100%}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+
+section{padding-block:26px 6px;display:grid;gap:14px}
+.sechead{display:flex;justify-content:space-between;align-items:end;gap:10px}
+.link{border:0;background:none;color:var(--sea);font-weight:600;padding:0}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{position:relative;border:0;padding:0;border-radius:16px;overflow:hidden;text-align:left;color:#fff;background:#0b2a30;min-height:150px}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease}
+.tile:hover img{transform:scale(1.06)}
+.tile span{position:absolute;inset:auto 0 0 0;padding:28px 12px 10px;background:linear-gradient(180deg,transparent,rgba(5,20,26,.85));font-family:var(--display);font-size:22px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;line-height:1}
+.tile small{display:block;font-family:var(--body);font-size:12px;text-transform:none;letter-spacing:0;font-weight:500;opacity:.85;margin-top:4px}
+.strip{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px))}
+.strip>*{scroll-snap-align:start}
+.strip img.g{flex:0 0 72%;max-width:72%;aspect-ratio:4/5;object-fit:cover;border-radius:14px}
+.mini{flex:0 0 64%;max-width:64%;border:0;padding:0;background:none;text-align:left;display:grid;gap:6px}
+.mini img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px}
+.mini b{font-family:var(--display);font-size:19px;text-transform:uppercase;letter-spacing:.03em}
+.mini span{font-size:13px;color:var(--muted)}
+.info{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;display:grid;gap:6px}
+.sea-band{position:relative;border-radius:18px;overflow:hidden;color:#fff;min-height:320px;display:grid;align-content:end}
+.sea-band .show{position:absolute;inset:0}
+.sea-band .txt{position:relative;z-index:2;padding:18px;display:grid;gap:6px}
+.sea-band p{margin:0;max-width:32ch;opacity:.92}
+
+/* menu */
+.mhead{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:12px 8px;display:grid;gap:10px;border-bottom:1px solid var(--line)}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--chip);border-radius:12px;padding:4px}
+.seg button{border:0;background:transparent;border-radius:9px;padding:9px;font-weight:600;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.search{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 12px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.chips button{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap}
+.chips button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.cat{padding-top:22px;display:grid;gap:4px;scroll-margin-top:150px}
+.cat-banner{width:100%;max-width:100%;aspect-ratio:16/8;object-fit:cover;border-radius:14px;margin-bottom:8px}
+.cat .note{font-size:13px;margin:0 0 6px}
+.item{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:start}
+.item .name{font-weight:600;min-width:0}
+.item .desc{font-size:13px;color:var(--muted);grid-column:1;min-width:0}
+.item .price{font-weight:700;white-space:nowrap}
+.item .tags{grid-column:1;display:flex;gap:4px;flex-wrap:wrap}
+.tag{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--sun);border:1px solid currentColor;border-radius:6px;padding:1px 6px}
+.qty{grid-column:2;grid-row:2 / span 2;justify-self:end;display:flex;align-items:center;gap:6px}
+.qty button{width:32px;height:32px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-weight:700;font-size:18px;line-height:1}
+.qty button.add{background:var(--sea);border-color:var(--sea);color:var(--on-sea)}
+.qty span{min-width:18px;text-align:center;font-weight:700}
+
+/* stay */
+.notice{font-size:12.5px;color:var(--sun);border:1px dashed currentColor;border-radius:10px;padding:8px 10px;margin:0}
+.filters{display:flex;gap:6px;overflow-x:auto}
+.filters button{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;color:var(--muted)}
+.filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.rcard{position:relative;border:0;padding:0;border-radius:20px;overflow:hidden;text-align:left;color:#fff;background:#0b2a30;display:block;width:100%}
+.rcard img{width:100%;aspect-ratio:4/3.2;object-fit:cover;display:block;transition:transform 1.4s ease}
+.rcard:hover img{transform:scale(1.05)}
+.rcard .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,20,26,0) 40%,rgba(5,20,26,.88))}
+.rcard .meta{position:absolute;left:0;right:0;bottom:0;padding:16px;display:grid;gap:4px}
+.rcard .type{justify-self:start;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(255,255,255,.16);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:3px 10px}
+.rcard h3{font-size:28px}
+.rcard .sub{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;opacity:.95}
+.rcard .sub b{font-weight:700}
+
+/* room view (full screen) */
+.rv{position:fixed;inset:0;z-index:50;background:var(--bg);overflow-y:auto;overscroll-behavior:contain}
+.rv .show{height:min(66svh,560px);min-height:360px}
+.rv .back{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));left:max(16px,env(safe-area-inset-left,0px));z-index:3}
+.rv .head{position:absolute;left:0;right:0;bottom:26px;color:#fff;z-index:2;display:grid;gap:6px}
+.rv .head h2{font-size:44px}
+.rv .content{max-width:560px;margin:0 auto;padding-block:18px calc(40px + env(safe-area-inset-bottom,0px));display:grid;gap:18px}
+.facts3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.facts3 div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;display:grid;gap:2px;min-width:0}
+.facts3 small{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.facts3 b{font-size:14px}
+.amen{display:flex;flex-wrap:wrap;gap:6px}
+.amen span{font-size:13px;background:var(--chip);border-radius:8px;padding:4px 10px}
+.thumbs{display:flex;gap:8px;overflow-x:auto}
+.thumbs button{flex:0 0 auto;border:2px solid transparent;padding:0;border-radius:10px;overflow:hidden;background:none}
+.thumbs button[aria-pressed="true"]{border-color:var(--sea)}
+.thumbs img{width:84px;height:62px;object-fit:cover;display:block}
+.pricebox{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.pricebox b{font-family:var(--display);font-size:30px}
+
+/* cards for experiences */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:grid}
+.card img{width:100%;max-width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.card .body{padding:14px;display:grid;gap:8px}
+.facts{display:flex;gap:6px;flex-wrap:wrap}
+.facts span{font-size:12px;background:var(--chip);border-radius:8px;padding:3px 8px;color:var(--muted);font-weight:600}
+.example{font-size:12px;font-weight:600;color:var(--sun)}
+
+/* cart bar + nav */
+.cartbar{position:fixed;left:0;right:0;bottom:calc(64px + env(safe-area-inset-bottom,0px));z-index:20;pointer-events:none}
+.cartbar .in{max-width:560px;margin:0 auto;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));padding-bottom:8px}
+.cartbar button{pointer-events:auto;width:100%;border:0;border-radius:14px;padding:13px 16px;background:var(--ink);color:var(--bg);display:flex;justify-content:space-between;font-weight:700;box-shadow:var(--shadow)}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:21;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav.tabs .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+nav.tabs button{border:0;background:transparent;padding:8px 0 10px;display:grid;justify-items:center;gap:2px;font-size:11px;font-weight:600;color:var(--muted);height:64px}
+nav.tabs button[aria-current="page"]{color:var(--sea)}
+nav.tabs svg{width:22px;height:22px}
+
+/* sheet */
+.scrim{position:fixed;inset:0;background:rgba(4,16,20,.55);z-index:60;display:flex;align-items:flex-end;justify-content:center}
+.sheet{width:100%;max-width:560px;max-height:88%;overflow:auto;background:var(--bg);border-radius:20px 20px 0 0;padding-block:18px calc(18px + env(safe-area-inset-bottom,0px));display:grid;gap:14px;align-content:start}
+.sheet .grab{width:40px;height:4px;border-radius:4px;background:var(--line);justify-self:center}
+.field{display:grid;gap:4px;min-width:0}
+.field label{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 12px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.line{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.total{display:flex;justify-content:space-between;font-family:var(--display);font-size:24px;text-transform:uppercase}
+.hint{font-size:12.5px;color:var(--muted);margin:0}
+.wa{font-size:13px;color:var(--muted);text-align:center;margin:0}
+@media (prefers-reduced-motion:no-preference){.sheet{animation:up .22s ease-out}@keyframes up{from{transform:translateY(24px);opacity:.6}}.rv{animation:fadein .35s ease-out}@keyframes fadein{from{opacity:0}}}
+/* menu-only page */
+.menu-only{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+.menu-only .hero .show{height:min(56svh,460px);min-height:340px}
+.item.ro{grid-template-columns:1fr auto}
+.waiter{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--ink);color:var(--bg);padding-bottom:env(safe-area-inset-bottom,0px)}
+.waiter .in{max-width:560px;margin:0 auto;padding:12px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));display:flex;gap:10px;align-items:center;justify-content:center;font-weight:600;font-size:14px;letter-spacing:.02em}
+.waiter svg{width:18px;height:18px;flex:none}
+</style>
+
+<div id="root"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/htm@3.1.1/dist/htm.umd.js"></script>
+<script>
+/* ===== MENU (fonte: cartas Nerida Villa) ===== */
+const FOOD = [
+ {cat:"Para começar", items:[
+  ["Couvert",4000,"Pão, paté, manteiga"],["Aperitivos",1500,"Pipocas ou gingubas"],
+  ["Salgados",3500,"3 rissóis, 3 croquetes ou coxinhas de frango"]]},
+ {cat:"Entradas", items:[
+  ["Gambas ao Alho",10500],["Choco Frito",8000],["Salada de Polvo",6500],
+  ["Chouriço Assado",7500],["Frango à Passarinho",4000],["Pica-pau",8500]]},
+ {cat:"Sopas", items:[["Caldo de Peixe",6500],["Sopa do Dia",3500]]},
+ {cat:"Saladas e Vegetariano", items:[
+  ["Salada Nerida",8500,"Gambas, alface, ananás, melancia, molho cocktail"],
+  ["Salada de Atum",7500,"Alface, atum, azeitonas, pimentos, ovos"],
+  ["Legumes à Moda do Chefe",1800,"",["Vegetariano"]],
+  ["Salada Simples ou Mista",2500,"",["Vegetariano"]]]},
+ {cat:"Peixe", items:[
+  ["Posta de Corvina",15500,"Legumes a vapor, banana pão, batata doce"],
+  ["Posta de Garoupa",15500,"Legumes a vapor, banana pão, batata doce"],
+  ["Calafate",16800,"Feijão de óleo de palma, batata doce, mandioca, farinha, molho vinagrete"],
+  ["Chopa",16800,"Feijão de óleo de palma, batata doce, mandioca, farinha, molho vinagrete"],
+  ["Cataplana de Peixe",32500,"",["Para 2"]],
+  ["Choco Grelhado",14500],["Polvo à Lagareiro",17300]]},
+ {cat:"Marisco", items:[["Cozido de Marisco",32500],["Bobó de Camarão",15500]]},
+ {cat:"Carne", note:"Acompanha arroz branco, feijão preto e batata frita, salvo indicação.", items:[
+  ["Frango Grelhado",9500,"Arroz, batata frita, salada"],
+  ["Cordon Bleu",15700,"Molho de tomate, massa e queijo"],
+  ["Bitoque",15200,"Batata frita, salada"],
+  ["Bife do Lombo",19700,"Esparregado e batata frita"],["Picanha",17900]]},
+ {cat:"Sugestão do Chefe", items:[["Prato de Marisco",30200],["Prato de Peixe",22200],["Prato de Carne",20700]]},
+ {cat:"Menu Infantil", items:[["Filetes de Peixe",9500],["Frango Panado",9500],["Almôndegas",15300],["Massa à Bolonhesa",15100]]},
+ {cat:"Menu Praia", photo:"lounge2", items:[
+  ["Batata Chips",4800],["Batata Doce Chips",4800],["Hambúrguer",6000],["Cachorro Quente",3000],["Prego no Pão",8500]]},
+ {cat:"Guarnições", items:[
+  ["Arroz Branco",2000],["Arroz de Tomate ou Feijão Preto",2100],["Feijão",2500,"Óleo de palma, manteiga ou preto"],
+  ["Batata Rena",1900,"Frita ou cozida"],["Batata Doce",1900,"Frita ou cozida"],["Mandioca Cozida",1900],["Ovo",500,"Estrelado ou cozido"]]},
+ {cat:"Sobremesas", items:[["Bolo do Dia",2000],["Sobremesa do Dia",2500],["Fruta da Época",2300]]}
+];
+const DRINK = [
+ {cat:"Cafetaria", items:[["Café Expresso",1500],["Café Americano",2000],["Café com Cheirinho",2500],["Carioca de Café",900],["Chá Infusão",900],["Chá Natural",1650]]},
+ {cat:"Águas, refrigerantes e sumos", items:[
+  ["Água Mineral 500 ml",800],["Água Mineral 1,5 L",1800],["Água Gaseificada",2100],["Água Tónica Welwitchia",1500],
+  ["Coca-Cola",1500],["Sprite",1500],["Sumol Laranja",1500],["Sumol Ananás",1500],
+  ["Sumo Natural",3800,"Ananás, maracujá, melancia ou limonada"]]},
+ {cat:"Cervejas", items:[["Cuca Lata",1970],["Cuca Garrafa",1150],["Eka Lata",1970],["Eka Garrafa",1150],["Nocal",1970]]},
+ {cat:"Cocktails sem álcool", photo:"granizado", items:[["Granizado de Frutas",5500],["Virgin Mojito",4500]]},
+ {cat:"Cocktails", photo:"margaritas", items:[
+  ["Cocktail Nerida",6000],["Mussulo Yetu",5000],["Caipirinha de Frutas",5000],["El Mojito",5500],["Gin Tónico Gordon's",5500],["M&M Sunrise",6700]]},
+ {cat:"Bebidas espirituosas", items:[
+  ["Whiskey Jameson",8000],["Johnnie Walker Black Label",10100],["Aguardente CR&F",8900],["Bagaceira",5800],
+  ["Cognac Rémy Martin VSOP",15000],["Cognac (outros)",10000],["Shot de Tequila",6500],["Licor Beirão",6500]]},
+ {cat:"Sangrias", photo:"ananas", items:[["Sangria Tinta 1 L",17500,"",["Para partilhar"]],["Sangria Branca 1 L",17500,"",["Para partilhar"]],["Sangria de Espumante 1 L",21000,"",["Para partilhar"]]]},
+ {cat:"Vinho rosé", items:[["Mateus Rosé 2023",12800,"750 ml"]]},
+ {cat:"Vinho branco e verde", items:[["Mariana Branco 2023",13500,"750 ml"],["Planalto Branco 2023",16500,"750 ml"]]},
+ {cat:"Vinho tinto", items:[["Segredos de São Miguel 2021",17000,"750 ml"],["Papa Figos 2023",21500,"750 ml"],["Mariana Tinto",19500]]},
+ {cat:"Espumantes", items:[["Moscato Cavatina",17000,"750 ml"],["Graham Beck Gliss Nectar Rosé",55000,"750 ml"],["Lambrusco",30000,"750 ml"],["Moët & Chandon Impérial",null,"Preço sob consulta"]]}
+];
+function build(list,kind){return list.map((c,ci)=>({...c,id:kind+"-"+ci,items:c.items.map((it,ii)=>({id:kind+ci+"-"+ii,name:it[0],price:it[1],desc:it[2]||"",tags:it[3]||[]}))}))}
+const MENU = {food:build(FOOD,"f"),drink:build(DRINK,"d")};
+const ITEMS = {}; [...MENU.food,...MENU.drink].forEach(c=>c.items.forEach(i=>ITEMS[i.id]=i));
+const kz = n => n==null ? null : String(n).replace(/\B(?=(\d{3})+(?!\d))/g,".")+" Kz";
+const img = k => "img/"+k+".jpg";
+function store(k,v){try{if(v===undefined){return JSON.parse(localStorage.getItem(k))}localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+const reduced = (()=>{try{return matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){return false}})();
+const UPDATED = "Comida: Setembro 2026 · Bebidas: Abril 2026";
+
+const T = {
+ pt:{eyebrow:"Nerida Villa · Restaurante e bar",title:"Menu",tag:"Escolha com calma. Quando estiver pronto, chame o empregado para fazer o pedido.",
+  food:"Comida",drink:"Bebidas",search:"Procurar prato ou bebida",onRequest:"Preço sob consulta",none:"Nada encontrado para",
+  updated:"Cartas",kz:"Preços em kwanzas.",waiter:"Para pedir, chame o empregado"},
+ en:{eyebrow:"Nerida Villa · Restaurant and bar",title:"Menu",tag:"Take your time. When you are ready, call the waiter to order.",
+  food:"Food",drink:"Drinks",search:"Search dishes or drinks",onRequest:"Price on request",none:"Nothing found for",
+  updated:"Menus",kz:"Prices in kwanzas.",waiter:"To order, please call the waiter"}
+};
+const HERO = [
+ {k:"margaritas",ox:"45%",oy:"55%",tx:"-2%",ty:"-1%"},
+ {k:"ananas",ox:"50%",oy:"55%",tx:"1.5%",ty:"-2%"},
+ {k:"granizado",ox:"50%",oy:"50%",tx:"-1%",ty:"1.5%"},
+ {k:"lounge2",ox:"50%",oy:"50%",tx:"2%",ty:"-1%"},
+ {k:"piscina",ox:"50%",oy:"60%",tx:"-2%",ty:"-2%"}
+];
+HERO.forEach(h=>{const i=new Image();i.src=img(h.k)});
+
+const {useState,useEffect,useMemo} = React;
+const html = htm.bind(React.createElement);
+const kindFromHash=()=>{const h=(location.hash||"").slice(1).toLowerCase();return h==="bebidas"||h==="drinks"?"drink":h==="comida"||h==="food"?"food":null};
+
+function Show({slides,interval=6000,intro=false,dur="11s",index,onIndex,label}){
+ const [own,setOwn]=useState(0);
+ const i=index??own; const set=onIndex??setOwn;
+ const [prev,setPrev]=useState(-1);
+ const n=slides.length;
+ const goTo=j=>{setPrev(i);set(((j%n)+n)%n)};
+ useEffect(()=>{if(reduced||n<2)return;const t=setTimeout(()=>goTo(i+1),interval);return()=>clearTimeout(t)},[i,n]);
+ const start=React.useRef(null);
+ const down=e=>{start.current={x:e.clientX,y:e.clientY}};
+ const up=e=>{const s=start.current;start.current=null;if(!s||n<2)return;const dx=e.clientX-s.x,dy=e.clientY-s.y;
+   if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.2)goTo(dx<0?i+1:i-1)};
+ const key=e=>{if(e.key==="ArrowRight")goTo(i+1);if(e.key==="ArrowLeft")goTo(i-1)};
+ return html`<div class=${"show"+(intro?" intro":"")} role="region" aria-roledescription="carrossel" aria-label=${label||""} tabIndex="0"
+   onPointerDown=${down} onPointerUp=${up} onPointerCancel=${()=>start.current=null} onKeyDown=${key}>
+  ${slides.map((s,n)=>{const o=typeof s==="string"?{k:s}:s;return html`<div key=${o.k+n} class=${"slide"+(n===i?" on":"")+(n===prev?" prev":"")+(n===0?" first":"")}
+     style=${{"--ox":o.ox||"50%","--oy":o.oy||"50%","--tx":o.tx||"-2%","--ty":o.ty||"-1.5%","--dur":dur}}>
+     <img src=${img(o.k)} alt="" loading=${n===0?"eager":"lazy"} decoding="async"/></div>`})}
+  <div class="veil"></div>
+  ${slides.length>1&&html`<div class="dots" aria-hidden="true">${slides.map((_,n)=>html`<i key=${n} class=${n===i?"on":""}></i>`)}</div>`}
+ </div>`;
+}
+
+
+function MenuPage(){
+ const [lang,setLang]=useState(()=>store("nv-lang")||"pt");
+ const t=T[lang];
+ const [kind,setKind]=useState(()=>kindFromHash()||"food");
+ const [q,setQ]=useState("");
+ useEffect(()=>{store("nv-lang",lang)},[lang]);
+ useEffect(()=>{const f=()=>{const k=kindFromHash();if(k)setKind(k)};addEventListener("hashchange",f);return()=>removeEventListener("hashchange",f)},[]);
+ const cats=MENU[kind];
+ const [active,setActive]=useState(cats[0].id);
+ useEffect(()=>setActive(MENU[kind][0].id),[kind]);
+ const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+ const all=[...MENU.food,...MENU.drink];
+ const shown=useMemo(()=>{if(!q.trim())return cats;const n=norm(q);
+   return all.map(c=>({...c,items:c.items.filter(i=>norm(i.name+" "+i.desc).includes(n))})).filter(c=>c.items.length)},[q,kind]);
+ const jump=id=>{setActive(id);document.getElementById(id)?.scrollIntoView({behavior:"smooth",block:"start"})};
+ const switchKind=k=>{setKind(k);setQ("");const top=document.querySelector(".mhead");if(top&&window.scrollY>top.offsetTop)window.scrollTo({top:top.offsetTop,behavior:"smooth"})};
+
+ return html`<div class="app menu-only">
+  <div class="hero">
+   <${Show} slides=${HERO} intro=${true} interval=${6000} dur="12s" label="Pratos e bebidas do Nerida Villa"/>
+   <div class="top pad">
+    <img class="logo-badge rise" src="img/logo.png" alt="Nerida Villa"/>
+    <button class="pill" onClick=${()=>setLang(lang==="pt"?"en":"pt")} aria-label="Mudar língua">${lang==="pt"?"EN":"PT"}</button></div>
+   <div class="copy pad">
+    <span class="eyebrow rise d1" style=${{color:"#f1d48a"}}>${t.eyebrow}</span>
+    <h1 class="rise d2">${t.title}</h1>
+    <p class="rise d3">${t.tag}</p></div>
+  </div>
+
+  <div class="mhead pad">
+   <div class="seg">
+    <button aria-pressed=${kind==="food"} onClick=${()=>switchKind("food")}>${t.food}</button>
+    <button aria-pressed=${kind==="drink"} onClick=${()=>switchKind("drink")}>${t.drink}</button>
+   </div>
+   <input id="menu-search" class="search" type="search" placeholder=${t.search} value=${q} onInput=${e=>setQ(e.target.value)}/>
+   ${!q&&html`<div class="chips">${cats.map(c=>html`<button key=${c.id} aria-pressed=${active===c.id} onClick=${()=>jump(c.id)}>${c.cat}</button>`)}</div>`}
+  </div>
+
+  <div class="pad">
+   ${shown.length===0&&html`<p class="muted" style=${{padding:"24px 0"}}>${t.none} “${q}”.</p>`}
+   ${shown.map(c=>html`<div class="cat" id=${c.id} key=${c.id}>
+     ${c.photo&&!q&&html`<img class="cat-banner" src=${img(c.photo)} alt="" loading="lazy"/>`}
+     <h3>${c.cat}</h3>
+     ${c.note&&html`<p class="note muted">${c.note}</p>`}
+     ${c.items.map(i=>html`<div class="item ro" key=${i.id}>
+       <div class="name">${i.name}</div>
+       <div class="price num">${i.price?kz(i.price):html`<span class="muted" style=${{fontWeight:500,fontSize:"13px"}}>${t.onRequest}</span>`}</div>
+       ${i.desc&&html`<div class="desc">${i.desc}</div>`}
+       ${i.tags.length>0&&html`<div class="tags">${i.tags.map(g=>html`<span class="tag" key=${g}>${g}</span>`)}</div>`}
+     </div>`)}
+   </div>`)}
+   <p class="hint" style=${{padding:"24px 0 8px"}}>${t.updated}: ${UPDATED}. ${t.kz}</p>
+  </div>
+
+  <div class="waiter"><div class="in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18h16"/><path d="M6 18a6 6 0 0 1 12 0"/><path d="M12 9V7"/><path d="M10 7h4"/></svg> ${t.waiter}</div></div>
+ </div>`;
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(html`<${MenuPage}/>`);
+
+</script>
+</body></html>
