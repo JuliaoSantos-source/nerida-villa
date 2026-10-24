@@ -187,6 +187,22 @@ nav.tabs svg{width:22px;height:22px}
 .menu-only{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
 .menu-only .hero .show{height:min(56svh,460px);min-height:340px}
 .item.ro{grid-template-columns:1fr auto}
+.item.has-ph{grid-template-columns:76px 1fr auto;column-gap:14px;align-items:center}
+.item.has-ph .thumb{grid-row:1 / span 3;align-self:start;width:76px;height:76px;padding:0;border:0;border-radius:14px;overflow:hidden;background:var(--chip);cursor:zoom-in}
+.item.has-ph .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.item.has-ph .thumb:hover img{transform:scale(1.08)}
+.item.has-ph .name{grid-column:2;align-self:end}
+.item.has-ph .price{grid-column:3;grid-row:1;align-self:end}
+.item.has-ph .desc,.item.has-ph .tags{grid-column:2 / span 2}
+.zoom{position:fixed;inset:0;z-index:60;background:rgba(4,14,18,.88);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.zoom figure{margin:0;width:min(520px,100%);background:var(--surface);border-radius:20px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
+.zoom img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.zoom figcaption{display:flex;justify-content:space-between;gap:12px;padding:14px 16px;align-items:start}
+.zoom figcaption div{display:grid;gap:2px;min-width:0}
+.zoom figcaption span{font-size:13px;color:var(--muted)}
+.zoom figcaption small{font-size:11px;color:var(--sun);letter-spacing:.06em;text-transform:uppercase;font-weight:600;margin-top:4px}
+.zoom .zclose{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px))}
+@media (prefers-reduced-motion:no-preference){.zoom figure{animation:pop .35s cubic-bezier(.2,.8,.2,1)}@keyframes pop{from{transform:scale(.94);opacity:0}}}
 .waiter{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--ink);color:var(--bg);padding-bottom:env(safe-area-inset-bottom,0px)}
 .waiter .in{max-width:560px;margin:0 auto;padding:12px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));display:flex;gap:10px;align-items:center;justify-content:center;font-weight:600;font-size:14px;letter-spacing:.02em}
 .waiter svg{width:18px;height:18px;flex:none}
@@ -265,11 +281,27 @@ const UPDATED = "Comida: Setembro 2026 · Bebidas: Abril 2026";
 const T = {
  pt:{eyebrow:"Nerida Villa · Restaurante e bar",title:"Menu",tag:"Escolha com calma. Quando estiver pronto, chame o garçon para fazer o pedido.",
   food:"Comida",drink:"Bebidas",search:"Procurar prato ou bebida",onRequest:"Preço sob consulta",none:"Nada encontrado para",
-  updated:"Cartas",kz:"Preços em kwanzas.",waiter:"Para pedir, chame o garçon"},
+  updated:"Cartas",kz:"Preços em kwanzas.",waiter:"Para pedir, chame o garçon",see:"Ver foto de",close:"Fechar",illus:"Fotos dos pratos ilustrativas, via",illusOne:"Imagem ilustrativa"},
  en:{eyebrow:"Nerida Villa · Restaurant and bar",title:"Menu",tag:"Take your time. When you are ready, call the waiter to order.",
   food:"Food",drink:"Drinks",search:"Search dishes or drinks",onRequest:"Price on request",none:"Nothing found for",
-  updated:"Menus",kz:"Prices in kwanzas.",waiter:"To order, please call the waiter"}
+  updated:"Menus",kz:"Prices in kwanzas.",waiter:"To order, please call the waiter",see:"See photo of",close:"Close",illus:"Dish photos are illustrative, via",illusOne:"Illustrative image"}
 };
+/* Fotos ilustrativas (Unsplash, licença livre). Substituir pelas fotos reais dos pratos. */
+const PHOTOS = {
+ "Gambas ao Alho":"1669385185718-7487c89c850a","Choco Frito":"1762305195844-94479ea6aca4","Salada de Polvo":"1764397514690-82da4d4c40ed",
+ "Frango à Passarinho":"1766589221606-08bc21fa1acd","Chouriço Assado":"1624772398061-bbfa87ec6b5a","Caldo de Peixe":"1682596044586-76c1d9ee1a97",
+ "Salada Nerida":"1659415402156-711521b67ebe","Posta de Garoupa":"1665401015549-712c0dc5ef85","Polvo à Lagareiro":"1768322264423-4b0adf0cf31b",
+ "Cozido de Marisco":"1571167366136-b57e07761625","Bobó de Camarão":"1781332143666-5d02f0fe7865","Prato de Marisco":"1765100479761-2359e22fbe16",
+ "Picanha":"1600891964092-4316c288032e","Bife do Lombo":"1778855400007-37cbd89592ef","Bitoque":"1634564381313-52941f3c7512",
+ "Hambúrguer":"1568901346375-23c9450c58cd","Cachorro Quente":"1638368593249-7cadb261e8b3","Prego no Pão":"1700937314577-898450cafe35",
+ "Batata Chips":"1768215610440-fcb9631c7ee2","Almôndegas":"1632808664408-f8ab196b0523","Filetes de Peixe":"1697748836791-9ddf7e616ece",
+ "Bolo do Dia":"1768260732302-12822bd6427b","Fruta da Época":"1490474418585-ba9bad8fd0ea",
+ "El Mojito":"1775717427643-2b0fc39a81f8","Virgin Mojito":"1546171753-97d7676e4602","Caipirinha de Frutas":"1573768277009-98726695f7b6",
+ "Gin Tónico Gordon's":"1453824979084-c8fd42932378","Sangria Tinta 1 L":"1781448714111-5f5850b0f753","Sumo Natural":"1600271886742-f049cd451bba",
+ "Café Expresso":"1559496417-e7f25cb247f3","Mariana Branco 2023":"1597905722448-a1df7c00000a","Moscato Cavatina":"1580657274234-7339717f4541"
+};
+const uns=(id,w)=>`https://images.unsplash.com/photo-${id}?w=${w}&h=${w}&fit=crop&q=70&auto=format`;
+
 const HERO = [
  {k:"margaritas",ox:"45%",oy:"55%",tx:"-2%",ty:"-1%"},
  {k:"ananas",ox:"50%",oy:"55%",tx:"1.5%",ty:"-2%"},
@@ -311,6 +343,8 @@ function MenuPage(){
  const t=T[lang];
  const [kind,setKind]=useState(()=>kindFromHash()||"food");
  const [q,setQ]=useState("");
+ const [zoom,setZoom]=useState(null);
+ useEffect(()=>{if(!zoom)return;const k=e=>{if(e.key==="Escape")setZoom(null)};addEventListener("keydown",k);document.body.style.overflow="hidden";return()=>{removeEventListener("keydown",k);document.body.style.overflow=""}},[zoom]);
  useEffect(()=>{store("nv-lang",lang)},[lang]);
  useEffect(()=>{const f=()=>{const k=kindFromHash();if(k)setKind(k)};addEventListener("hashchange",f);return()=>removeEventListener("hashchange",f)},[]);
  const cats=MENU[kind];
@@ -350,15 +384,25 @@ function MenuPage(){
      ${c.photo&&!q&&html`<img class="cat-banner" src=${img(c.photo)} alt="" loading="lazy"/>`}
      <h3>${c.cat}</h3>
      ${c.note&&html`<p class="note muted">${c.note}</p>`}
-     ${c.items.map(i=>html`<div class="item ro" key=${i.id}>
+     ${c.items.map(i=>{const ph=PHOTOS[i.name];return html`<div class=${"item ro"+(ph?" has-ph":"")} key=${i.id}>
+       ${ph&&html`<button class="thumb" onClick=${()=>setZoom({ph,i})} aria-label=${t.see+" "+i.name}><img src=${uns(ph,160)} alt="" loading="lazy" decoding="async"/></button>`}
        <div class="name">${i.name}</div>
        <div class="price num">${i.price?kz(i.price):html`<span class="muted" style=${{fontWeight:500,fontSize:"13px"}}>${t.onRequest}</span>`}</div>
        ${i.desc&&html`<div class="desc">${i.desc}</div>`}
        ${i.tags.length>0&&html`<div class="tags">${i.tags.map(g=>html`<span class="tag" key=${g}>${g}</span>`)}</div>`}
-     </div>`)}
+     </div>`})}
    </div>`)}
-   <p class="hint" style=${{padding:"24px 0 8px"}}>${t.updated}: ${UPDATED}. ${t.kz}</p>
+   <p class="hint" style=${{padding:"24px 0 8px"}}>${t.updated}: ${UPDATED}. ${t.kz} ${t.illus} <a href="https://unsplash.com" target="_blank" rel="noopener" style=${{color:"inherit"}}>Unsplash</a>.</p>
   </div>
+
+  ${zoom&&html`<div class="zoom" role="dialog" aria-modal="true" aria-label=${zoom.i.name} onClick=${()=>setZoom(null)}>
+    <figure>
+     <img src=${uns(zoom.ph,1000)} alt=${zoom.i.name}/>
+     <figcaption><div><b>${zoom.i.name}</b>${zoom.i.desc&&html`<span>${zoom.i.desc}</span>`}<small>${t.illusOne}</small></div>
+      <b class="num">${zoom.i.price?kz(zoom.i.price):t.onRequest}</b></figcaption>
+    </figure>
+    <button class="pill zclose" onClick=${()=>setZoom(null)}>${t.close}</button>
+  </div>`}
 
   <div class="waiter"><div class="in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18h16"/><path d="M6 18a6 6 0 0 1 12 0"/><path d="M12 9V7"/><path d="M10 7h4"/></svg> ${t.waiter}</div></div>
  </div>`;
